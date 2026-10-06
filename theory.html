@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Двоичное кодирование | Теория</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f7fb;
+      background-image: radial-gradient(#d8e3f0 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #1e2a3a;
+    }
+
+    .presentation {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 50px -20px rgba(30, 60, 100, 0.25), 0 0 0 1px rgba(120, 160, 200, 0.15);
+      padding: 40px 48px 48px;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+
+    h1 .accent {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subhead {
+      text-align: center;
+      font-size: 1.05rem;
+      color: #6b7f99;
+      margin-bottom: 36px;
+      border-bottom: 2px dashed #d8e3f0;
+      padding-bottom: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: #fbfdff;
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid #e1eaf5;
+      box-shadow: 0 4px 16px -8px rgba(30, 60, 100, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: #b8d4f0;
+      box-shadow: 0 8px 24px -10px rgba(30, 60, 100, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p, .card li {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #3b4d63;
+    }
+
+    .card ul, .card ol {
+      padding-left: 24px;
+      margin: 12px 0;
+    }
+
+    .card li { margin-bottom: 8px; }
+
+    .highlight {
+      color: #1a5fb4;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #eaf3fe;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid #cfe3fa;
+    }
+
+    .binary-block {
+      background: #eef6ff;
+      border-radius: 16px;
+      padding: 16px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      color: #0b4a8f;
+      font-weight: 600;
+      margin: 16px 0;
+      word-break: break-word;
+      border: 1px solid #cfe3fa;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .tree-visual {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      background: #f2f8ff;
+      border-radius: 16px;
+      padding: 18px;
+      color: #1a5fb4;
+      border: 1px solid #cfe3fa;
+      white-space: pre;
+      overflow-x: auto;
+      margin: 12px 0;
+      text-align: center;
+    }
+
+    .accent-block {
+      background: #eaf3fe;
+      border-left: 4px solid #4dabf7;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      color: #1e3a5f;
+    }
+
+    .accent-block strong { color: #1a5fb4; }
+
+    .example-block {
+      background: #f0f9f4;
+      border-left: 4px solid #34a853;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 16px 0;
+      color: #1e3a5f;
+    }
+
+    .example-block .example-title {
+      font-weight: 700;
+      color: #1e7e34;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .example-block p { margin-bottom: 8px; }
+    .example-block ul, .example-block ol { margin: 8px 0; }
+
+    .morse-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      background: #f2f8ff;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #cfe3fa;
+      margin: 12px 0;
+    }
+
+    .morse-table span { color: #1a5fb4; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid #eef3f9;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border: none;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px -8px rgba(44, 123, 229, 0.6);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #1a5fb4, #2c7be5);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(44, 123, 229, 0.7);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .progress-indicator {
+      display: flex;
+      gap: 12px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 20px;
+      background: #d8e3f0;
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      background: #2c7be5;
+      box-shadow: 0 0 10px rgba(44, 123, 229, 0.5);
+      width: 36px;
+    }
+
+    @media (max-width: 800px) {
+      .presentation { padding: 24px; }
+      h1 { font-size: 1.9rem; }
+      .theory-grid { grid-template-columns: 1fr; }
+      .btn { padding: 14px 28px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  <h1><span class="accent">⚡ ДВОИЧНОЕ КОДИРОВАНИЕ</span></h1>
+  <div class="subhead">10 класс · Обработка информации · Кодирование · Условие Фано</div>
+
+  <div class="theory-grid">
+    <!-- 1. Информационный процесс -->
+    <div class="card">
+      <h2>🔄 Информационный процесс</h2>
+      <p><span class="highlight">Информационный процесс</span> — совокупность последовательных действий (операций), производимых над информацией для получения результата.</p>
+      <p><strong>Основные виды:</strong></p>
+      <ul>
+        <li>обработка информации</li>
+        <li>хранение информации</li>
+        <li>передача информации</li>
+      </ul>
+      <div class="accent-block">
+        <strong>Обработка информации</strong> — целенаправленный процесс изменения содержания или формы представления информации.
+      </div>
+    </div>
+
+    <!-- 2. Виды обработки информации -->
+    <div class="card">
+      <h2>⚙️ Виды обработки информации</h2>
+      <p><strong>1. Получение нового содержания:</strong></p>
+      <ul>
+        <li>преобразование по правилам</li>
+        <li>исследование объектов по их моделям</li>
+        <li>логические рассуждения</li>
+      </ul>
+      <p><strong>2. Изменение формы представления:</strong></p>
+      <ul>
+        <li>кодирование</li>
+        <li>структурирование</li>
+        <li>поиск и отбор информации</li>
+      </ul>
+      <div class="accent-block">
+        <strong>Схема:</strong> Исходная информация → Алгоритм обработки → Результат
+      </div>
+    </div>
+
+    <!-- 3. Кодирование, код, кодовая таблица -->
+    <div class="card">
+      <h2>🔐 Кодирование и код</h2>
+      <p><span class="highlight">Кодирование</span> — обработка информации, заключающаяся в её преобразовании в форму, удобную для хранения, передачи и обработки.</p>
+      <p><span class="highlight">Код</span> — система условных обозначений (кодовых слов) для представления информации.</p>
+      <p><span class="highlight">Кодовая таблица</span> — совокупность используемых кодовых слов и их значений.</p>
+    </div>
+
+    <!-- 4. Азбука Морзе -->
+    <div class="card">
+      <h2>📡 Азбука Морзе</h2>
+      <p>Самый известный пример <strong>неравномерного кода</strong>. Буквы кодируются последовательностями «точек» и «тире», разделённых паузами.</p>
+      <div class="morse-table">
+        <span>A · —</span><span>B — · · ·</span>
+        <span>C — · — ·</span><span>D — · ·</span>
+        <span>E ·</span><span>F · · — ·</span>
+        <span>G — — ·</span><span>H · · · ·</span>
+        <span>I · ·</span><span>J · — — —</span>
+        <span>K — · —</span><span>L · — · ·</span>
+        <span>M — —</span><span>N — ·</span>
+        <span>O — — —</span><span>P · — — ·</span>
+      </div>
+      <p><strong>Правила:</strong> точка = 1 единица, тире = 3 единицы, пауза между знаками = 3 единицы, между словами = 7 единиц.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p>Расшифруйте слово по временнóй шкале:</p>
+        <div class="binary-block">— · · · — · — — · — ·</div>
+        <p><strong>Решение:</strong> B (—···) + Y (—·——) + T (—) + E (·) = <strong>BYTE</strong></p>
+      </div>
+    </div>
+
+    <!-- 5. Правило умножения -->
+    <div class="card">
+      <h2>✖️ Правило умножения</h2>
+      <p>Если элемент A можно выбрать <strong>n</strong> способами, а элемент B — <strong>m</strong> способами, то пару (A, B) можно выбрать <strong>n · m</strong> способами.</p>
+      
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>Условие:</strong> Кодовый замок имеет три кольца с цифрами от 0 до 9. Сколько различных комбинаций можно на нём закодировать?</p>
+        <p><strong>Решение:</strong> На каждом кольце 10 вариантов. Всего:</p>
+        <div class="binary-block">10 · 10 · 10 = 1000 комбинаций</div>
+      </div>
+
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p>4 цвета для каждого из 3 элементов: 4³ = 64 способа. Для 8 элементов: 4⁸ = 65 536 способов.</p>
+      </div>
+    </div>
+
+    <!-- 6. Комбинаторика: сочетания -->
+    <div class="card">
+      <h2>🎲 Комбинаторика: сочетания</h2>
+      <p><span class="highlight">Сочетание</span> из n по k — набор k элементов, выбранных из n различных элементов (порядок не важен).</p>
+      <div class="binary-block">C(n, k) = n! / (k! · (n − k)!)</div>
+      <p>где n! = 1 · 2 · … · n.</p>
+
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>Условие:</strong> Алфавит {A, B, C, D}. Сколько существует последовательностей из 7 символов, содержащих ровно 5 букв A?</p>
+        <p><strong>Решение:</strong></p>
+        <ol>
+          <li>Выбираем 5 позиций для A из 7: <strong>C(7,5) = 21</strong> способ.</li>
+          <li>На оставшихся 2 позициях — любые из 3 букв (B, C, D): <strong>3² = 9</strong> способов.</li>
+          <li>Итого: <strong>21 · 9 = 189</strong> последовательностей.</li>
+        </ol>
+        <div class="binary-block">C(7,5) · 3² = 21 · 9 = 189</div>
+      </div>
+    </div>
+
+    <!-- 7. Префиксный код -->
+    <div class="card">
+      <h2>🌳 Префиксный код</h2>
+      <p><span class="highlight">Префиксный код</span> — код со словами переменной длины, в котором никакое кодовое слово не является началом другого (более длинного) кодового слова.</p>
+      <p><strong>Пример префиксного кода:</strong> 0, 10, 11.</p>
+      <p><strong>Пример НЕ префиксного:</strong> 0, 10, 100 (10 — начало 100).</p>
+      <div class="accent-block">
+        Префиксный код всегда допускает однозначное декодирование.
+      </div>
+
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>Условие:</strong> Двоичные коды: A→000, B→011, C→001, D→0011... (из таблицы). Декодируйте строку <code>0110100011000</code>.</p>
+        <p><strong>Решение:</strong> последовательно читаем код:</p>
+        <div class="binary-block">
+          011 → B<br>
+          010 → D<br>
+          0011 → C<br>
+          000 → A
+        </div>
+        <p><strong>Ответ:</strong> BDCEA</p>
+      </div>
+    </div>
+
+    <!-- 8. Условие Фано -->
+    <div class="card">
+      <h2>📜 Прямое и обратное условие Фано</h2>
+      <p><strong>Прямое условие Фано:</strong> ни одно кодовое слово не является <em>началом</em> другого.</p>
+      <p><strong>Обратное условие Фано:</strong> ни одно кодовое слово не является <em>окончанием</em> другого.</p>
+      <p>Достаточно выполнения одного из условий для однозначного декодирования.</p>
+      <div class="accent-block">
+        <strong>Роберт Марио Фано</strong> — итальяно-американский учёный, известный работами в теории информации.
+      </div>
+
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>Условие:</strong> Коды: А→0, Б→10, В→110. Каким может быть код для Г?</p>
+        <p><strong>Решение:</strong> строим дерево. Свободная ветка — 111. Значит, <strong>Г → 111</strong>.</p>
+        <div class="tree-visual">
+        (root)
+        /    \
+       0(A)   1
+            /   \
+          0(Б)   1
+               /   \
+             0(В)  1(Г)
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Кодовые деревья -->
+    <div class="card">
+      <h2>🌲 Кодовые деревья</h2>
+      <p><strong>Дерево</strong> — иерархическая структура из вершин и рёбер. <strong>Корень</strong> — вершина без входящих рёбер. <strong>Листья</strong> — вершины без исходящих рёбер.</p>
+      <p><strong>Двоичное (бинарное) дерево</strong> — из каждой вершины выходит не более двух рёбер (0 и 1).</p>
+      <div class="tree-visual">
+        (root)
+        /    \
+       0      1
+      / \    / \
+     0   1  0   1
+      </div>
+      <p>Комбинации, соответствующие листьям, — это кодовые слова префиксного кода.</p>
+    </div>
+
+    <!-- 10. Перевод чисел -->
+    <div class="card">
+      <h2>🔄 Перевод чисел</h2>
+      <p><strong>Из десятичной в двоичную:</strong> делить на 2, записывать остатки в обратном порядке.</p>
+      <div class="binary-block">23₁₀ = 10111₂</div>
+      <p><strong>Из двоичной в десятичную:</strong> умножать каждую цифру на 2 в степени разряда (справа налево, начиная с 0).</p>
+      <div class="binary-block">10101₂ = 16+4+1 = 21₁₀</div>
+      <div class="accent-block">
+        <strong>Хитрый способ:</strong> 41 = 32 + 8 + 1 = 2⁵ + 2³ + 2⁰ → 101001₂
+      </div>
+    </div>
+
+    <!-- 11. Метод последовательного перебора -->
+    <div class="card">
+      <h2>🔍 Метод последовательного перебора</h2>
+      <p>Применяется для <strong>неструктурированного</strong> набора данных.</p>
+      <ul>
+        <li>Поиск завершается, когда найден элемент или просмотрены все элементы.</li>
+        <li>Длительность поиска: <strong>L = N/2</strong> (в среднем), <strong>L = N</strong> (в худшем случае).</li>
+      </ul>
+
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>Условие:</strong> В магазине 9 коробок с обувью. Нужно найти пару для одинокой кроссовки.</p>
+        <p><strong>Решение:</strong> последовательно открываем коробки, пока не найдём пару. В среднем — 4–5 проверок, в худшем случае — 9.</p>
+      </div>
+    </div>
+
+    <!-- 12. Метод половинного деления -->
+    <div class="card">
+      <h2>⚡ Метод половинного деления</h2>
+      <p>Применяется для <strong>упорядоченного</strong> набора данных.</p>
+      <ul>
+        <li>Сравниваем с центральным элементом [N/2] + 1.</li>
+        <li>Если не совпало — ищем в одной из двух частей.</li>
+        <li>Длительность поиска: <strong>N = 2<sup>L</sup></strong>, то есть L = log₂N.</li>
+      </ul>
+
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>Условие:</strong> 9 складов, заполнены по порядку. Найти первый незаполненный за меньшее число ходов.</p>
+        <p><strong>Решение:</strong> открываем склад №5. Если заполнен → ищем в 6–9, иначе в 1–4. Каждый раз делим пополам.</p>
+      </div>
+    </div>
+
+    <!-- 13. Алгоритм Хаффмана -->
+    <div class="card">
+      <h2>📊 Алгоритм Хаффмана</h2>
+      <p>Строит оптимальный префиксный код: более частым символам — более короткие коды.</p>
+      <ol>
+        <li>Создать узлы с частотами.</li>
+        <li>Извлекать два узла с наименьшими частотами.</li>
+        <li>Объединять их в новый узел с суммарной частотой.</li>
+        <li>Повторять, пока не останется один корень.</li>
+      </ol>
+      <p>Путь от корня: левая ветка — 0, правая — 1.</p>
+    </div>
+  </div>
+
+  <!-- Навигация -->
+  <div class="nav-buttons">
+    <div class="progress-indicator">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+    <a href="tasks.html" class="btn">Перейти к заданиям →</a>
+  </div>
+</div>
+</body>
+</html>
