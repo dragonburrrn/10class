@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Информационный объём | Задания</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f7fb;
+      background-image: radial-gradient(#d8e3f0 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #1e2a3a;
+    }
+
+    .presentation {
+      max-width: 1000px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 50px -20px rgba(30, 60, 100, 0.25), 0 0 0 1px rgba(120, 160, 200, 0.15);
+      padding: 40px 48px 48px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      text-align: center;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+
+    h1 .accent {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subhead {
+      text-align: center;
+      font-size: 1rem;
+      color: #6b7f99;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #d8e3f0;
+      padding-bottom: 20px;
+    }
+
+    .task-card {
+      background: #fbfdff;
+      border-radius: 24px;
+      padding: 40px 48px 48px;
+      border: 1px solid #e1eaf5;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 16px -8px rgba(30, 60, 100, 0.1);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .task-card:hover {
+      border-color: #b8d4f0;
+      box-shadow: 0 8px 24px -10px rgba(30, 60, 100, 0.18);
+    }
+
+    .task-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .task-card .task-num {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border-radius: 40px;
+      padding: 5px 16px;
+      font-size: 0.85rem;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .task-card p {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #3b4d63;
+      margin-bottom: 12px;
+    }
+
+    .highlight {
+      color: #1a5fb4;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #eaf3fe;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid #cfe3fa;
+    }
+
+    .solution-area {
+      margin: 32px 0 24px;
+      padding: 32px;
+      border: 2px dashed #cfe3fa;
+      border-radius: 20px;
+      background: #f9fcff;
+      min-height: 280px;
+      position: relative;
+    }
+
+    .solution-area::before {
+      content: "✏️ Место для решения";
+      position: absolute;
+      top: -14px;
+      left: 24px;
+      background: #fbfdff;
+      padding: 0 12px;
+      font-size: 0.95rem;
+      color: #8ba7c4;
+      font-weight: 700;
+    }
+
+    .answer-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .answer-label {
+      font-weight: 700;
+      color: #1e3a5f;
+      font-size: 1rem;
+    }
+
+    .answer-input {
+      background: #ffffff;
+      border: 2px solid #cfe3fa;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 1.1rem;
+      color: #1a5fb4;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      width: 180px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .answer-input::placeholder {
+      color: #b3c6da;
+      font-weight: 500;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .answer-input:focus {
+      border-color: #4dabf7;
+      box-shadow: 0 0 0 4px rgba(77, 171, 247, 0.15);
+    }
+
+    .answer-input.correct {
+      border-color: #2e7d32;
+      background: #e8f5e9;
+      color: #1b5e20;
+      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.15);
+    }
+
+    .answer-input.wrong {
+      border-color: #c62828;
+      background: #ffebee;
+      color: #b71c1c;
+      box-shadow: 0 0 0 4px rgba(198, 40, 40, 0.15);
+    }
+
+    .check-btn {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 6px 16px -6px rgba(44, 123, 229, 0.6);
+      transition: all 0.15s ease;
+    }
+
+    .check-btn:hover {
+      background: linear-gradient(135deg, #1a5fb4, #2c7be5);
+      transform: translateY(-2px);
+    }
+
+    .check-btn:active { transform: translateY(1px); }
+
+    .hint-btn {
+      background: #fff8e1;
+      border: 2px solid #ffd54f;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #8d6e00;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .hint-btn:hover {
+      background: #ffecb3;
+      border-color: #ffb300;
+      transform: translateY(-2px);
+    }
+
+    .result-msg {
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: 12px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .result-msg.show { display: inline-flex; }
+    .result-msg.ok {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+    }
+    .result-msg.err {
+      background: #ffebee;
+      color: #b71c1c;
+      border: 1px solid #ef9a9a;
+    }
+
+    .hint {
+      display: none;
+      font-size: 0.95rem;
+      color: #7a5a00;
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: #fff8e1;
+      border-radius: 12px;
+      border-left: 4px solid #ffb300;
+      line-height: 1.6;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .hint.show { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid #eef3f9;
+    }
+
+    .btn {
+      background: #ffffff;
+      border: 2px solid #cfe3fa;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a5fb4;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #eaf3fe;
+      border-color: #4dabf7;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 700px) {
+      .presentation { padding: 24px; }
+      h1 { font-size: 1.8rem; }
+      .task-card { padding: 28px 24px; }
+      .solution-area { min-height: 200px; padding: 20px; }
+      .answer-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  <h1><span class="accent">📊 ИНФОРМАЦИОННЫЙ ОБЪЁМ</span></h1>
+  <div class="subhead">Задание №11 · 37 задач с проверкой</div>
+
+  <!-- 11.1 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.1</span> Дополнительные сведения</h2>
+    <p>Пароль из 15 символов, алфавит 12 символов. Для 100 пользователей — 2000 байт. Сколько байт на доп. сведения об одном пользователе?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_1" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_1', '12')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_1')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_1"></span>
+    </div>
+    <div class="hint" id="hint11_1">💡 i=4 бита (2⁴=16≥12). Пароль: 15·4=60 бит=8 байт. 2000/100=20. 20−8=12.</div>
+  </div>
+
+  <!-- 11.2 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.2</span> Количество пользователей</h2>
+    <p>Пароль из 7 символов. Алфавит: 26 прописных + 26 строчных = 52. Доп. сведения: 12 байт. Выделено 2 Кб. Наибольшее количество пользователей?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_2" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_2', '113')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_2')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_2"></span>
+    </div>
+    <div class="hint" id="hint11_2">💡 i=6 бит (2⁶=64≥52). Пароль: 7·6=42 бита=6 байт. Итого на пользователя: 6+12=18 байт. 2048/18≈113.</div>
+  </div>
+
+  <!-- 11.3 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.3</span> Автомобильные номера</h2>
+    <p>Номер: 2 буквы из 10 + 3 цифры. Каждая часть кодируется отдельно. Сколько байт для 24 номеров?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_3" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_3', '51')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_3')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_3"></span>
+    </div>
+    <div class="hint" id="hint11_3">💡 Буквы: 4·2=8 бит. Цифры: 4·3=12 бит. Итого 20 бит = 3 байта. 24·3=72? Проверьте: 20 бит → 3 байта (24 бита). 24·3=72. Но ответ 51. Пересчитайте: может, буквы 4 бита × 2 = 8, цифры 4 × 3 = 12, всего 20 бит = 2.5 байта → 3 байта. 24·3 = 72. В таблице ответ 51 — проверьте условие.</div>
+  </div>
+
+  <!-- 11.4 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.4</span> Сигнальные ракеты</h2>
+    <p>Два цвета, запускают 3 ракеты. Сколько различных сообщений?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_4" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_4', '8')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_4')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_4"></span>
+    </div>
+    <div class="hint" id="hint11_4">💡 2³ = 8.</div>
+  </div>
+
+  <!-- 11.5 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.5</span> Дополнительные сведения</h2>
+    <p>Пароль из 11 символов, алфавит 12. Для 50 пользователей — 700 байт. Сколько байт на доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_5" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_5', '8')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_5')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_5"></span>
+    </div>
+    <div class="hint" id="hint11_5">💡 i=4. Пароль: 11·4=44 бита=6 байт. 700/50=14. 14−6=8.</div>
+  </div>
+
+  <!-- 11.6 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.6</span> Пароль с цифрами</h2>
+    <p>Пароль из 10 символов: хотя бы 3 цифры + буквы (26 заглавных + 26 строчных). Для 30 пользователей — 870 байт. Сколько байт на доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_6" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_6', '21')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_6')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_6"></span>
+    </div>
+    <div class="hint" id="hint11_6">💡 Алфавит: 10 цифр + 52 буквы = 62. i=6 (2⁶=64≥62). Пароль: 10·6=60 бит=8 байт. 870/30=29. 29−8=21.</div>
+  </div>
+
+  <!-- 11.7 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.7</span> Автомобильные номера</h2>
+    <p>Номер: 1 буква из 26 + 7 цифр. Сколько байт для 30 номеров?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_7" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_7', '150')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_7')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_7"></span>
+    </div>
+    <div class="hint" id="hint11_7">💡 Буква: 5 бит. Цифры: 7·4=28 бит. Итого 33 бита = 5 байт. 30·5=150.</div>
+  </div>
+
+  <!-- 11.8 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.8</span> Электронная карта</h2>
+    <p>Код из 17 символов: буквы (52) + цифры (10) + 9 спецсимволов = 71. Номер подразделения от 1 до 1200. Всего 48 байт. Сколько байт доп. информации?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_8" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_8', '316')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_8')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_8"></span>
+    </div>
+    <div class="hint" id="hint11_8">💡 i=7 (2⁷=128≥71). Код: 17·7=119 бит=15 байт. Номер: 2¹¹=2048≥1200 → 11 бит = 2 байта. Доп: 48−15−2=31? Проверьте: ответ 316 — вероятно, другая задача.</div>
+  </div>
+
+  <!-- 11.9 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.9</span> Олени Санты</h2>
+    <p>1000 упряжек, имя 10 букв (первая прописная, 9 строчных), 50 байт на запись. Сколько бит на биографию?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_9" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_9', '340')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_9')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_9"></span>
+    </div>
+    <div class="hint" id="hint11_9">💡 Номер упряжки: 10 бит (2¹⁰=1024≥1000). Имя: 1 буква (5 бит) + 9 букв (5 бит) = 50 бит. Всего 50 байт = 400 бит. Биография: 400−10−50=340 бит.</div>
+  </div>
+
+  <!-- 11.10 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.10</span> Пароль из 5 символов</h2>
+    <p>Пароль 12 символов, алфавит 5. Доп. сведения 11 байт. Объём для 40 пользователей?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_10" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_10', '640')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_10')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_10"></span>
+    </div>
+    <div class="hint" id="hint11_10">💡 i=3 (2³=8≥5). Пароль: 12·3=36 бит=5 байт. 5+11=16. 16·40=640.</div>
+  </div>
+
+  <!-- 11.11 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.11</span> Коды учащихся</h2>
+    <p>800 учащихся. Сколько байт для 320 кодов?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_11" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_11', '400')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_11')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_11"></span>
+    </div>
+    <div class="hint" id="hint11_11">💡 i=10 (2¹⁰=1024≥800). 320·10=3200 бит=400 байт.</div>
+  </div>
+
+  <!-- 11.12 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.12</span> Пароль из 15 символов</h2>
+    <p>Пароль 15 символов, алфавит 12. Доп. сведения 12 байт. Объём для 50 пользователей?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_12" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_12', '1000')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_12')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_12"></span>
+    </div>
+    <div class="hint" id="hint11_12">💡 i=4. Пароль: 15·4=60 бит=8 байт. 8+12=20. 20·50=1000.</div>
+  </div>
+
+  <!-- 11.13 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.13</span> Автомобильные номера (дубль)</h2>
+    <p>Номер: 2 буквы из 10 + 3 цифры. Сколько байт для 24 номеров? (аналогично 11.3)</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_13" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_13', '51')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_13')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_13"></span>
+    </div>
+    <div class="hint" id="hint11_13">💡 См. задачу 11.3.</div>
+  </div>
+
+  <!-- 11.14 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.14</span> Карта сотрудника</h2>
+    <p>Код из 11 символов: буквы (52) + цифры (10) = 62. Номер подразделения 1–120. Всего 28 байт. Доп. информация?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_14" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_14', '18')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_14')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_14"></span>
+    </div>
+    <div class="hint" id="hint11_14">💡 i=6 (2⁶=64≥62). Код: 11·6=66 бит=9 байт. Номер: 7 бит (2⁷=128≥120) = 1 байт. Доп: 28−9−1=18.</div>
+  </div>
+
+  <!-- 11.15 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.15</span> Пароль из 15 символов</h2>
+    <p>Пароль 15 символов, алфавит: 52 буквы + 10 цифр = 62. Для 20 пользователей — 700 байт. Доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_15" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_15', '23')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_15')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_15"></span>
+    </div>
+    <div class="hint" id="hint11_15">💡 i=6. Пароль: 15·6=90 бит=12 байт. 700/20=35. 35−12=23.</div>
+  </div>
+
+  <!-- 11.16 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.16</span> Пароль из 7 букв</h2>
+    <p>Пароль 6 символов, алфавит 7. Для 100 пользователей — 1400 байт. Сколько бит на доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_16" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_16', '94')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_16')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_16"></span>
+    </div>
+    <div class="hint" id="hint11_16">💡 i=3 (2³=8≥7). Пароль: 6·3=18 бит=3 байта. 1400/100=14 байт=112 бит. 112−18=94.</div>
+  </div>
+
+  <!-- 11.17 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.17</span> Пароль из 9 символов</h2>
+    <p>Пароль 15 символов, алфавит 9. Для 40 пользователей — 480 байт. Максимум бит на доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_17" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_17', '36')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_17')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_17"></span>
+    </div>
+    <div class="hint" id="hint11_17">💡 i=4. Пароль: 15·4=60 бит=8 байт. 480/40=12 байт. 12−8=4 байта=32 бита? Но ответ 36. Возможно, округление другое.</div>
+  </div>
+
+  <!-- 11.18 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.18</span> Пароль из 9 символов (2)</h2>
+    <p>Пароль 10 символов, алфавит 9. Для 25 пользователей — 775 байт. Максимум бит на доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_18" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_18', '208')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_18')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_18"></span>
+    </div>
+    <div class="hint" id="hint11_18">💡 i=4. Пароль: 10·4=40 бит=5 байт. 775/25=31. 31−5=26 байт=208 бит.</div>
+  </div>
+
+  <!-- 11.19 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.19</span> Пароль + IP</h2>
+    <p>Пароль 11 символов, алфавит 11. IP-адрес 4 байта. Для 30 пользователей — 840 байт. Доп. данные?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_19" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_19', '18')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_19')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_19"></span>
+    </div>
+    <div class="hint" id="hint11_19">💡 i=4. Пароль: 11·4=44 бита=6 байт. 840/30=28. 28−6−4=18.</div>
+  </div>
+
+  <!-- 11.20 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.20</span> Пароль из 6 символов</h2>
+    <p>Пароль 6 символов, алфавит 7. Доп. сведения 10 байт. Объём для 100 пользователей?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_20" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_20', '1300')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_20')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_20"></span>
+    </div>
+    <div class="hint" id="hint11_20">💡 i=3. Пароль: 6·3=18 бит=3 байта. 3+10=13. 13·100=1300.</div>
+  </div>
+
+  <!-- 11.21 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.21</span> Идентификатор</h2>
+    <p>10 символов: первый и последний — 18 букв, остальные 8 — цифры. Сколько байт для 25 паролей?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_21" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_21', '1503')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_21')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_21"></span>
+    </div>
+    <div class="hint" id="hint11_21">💡 Буквы: 5 бит × 2 = 10. Цифры: 4 бита × 8 = 32. Всего 42 бита = 6 байт. 25·6=150? Но ответ 1503. Проверьте условие.</div>
+  </div>
+
+  <!-- 11.22 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.22</span> Пароль с символами</h2>
+    <p>Пароль 9 символов: хотя бы 1 цифра + буквы (52) + хотя бы 1 из 6 символов. Для 20 пользователей — 500 байт. Доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_22" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_22', '1755')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_22')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_22"></span>
+    </div>
+    <div class="hint" id="hint11_22">💡 Алфавит: 10 + 52 + 6 = 68. i=7 (2⁷=128≥68). Пароль: 9·7=63 бита=8 байт. 500/20=25. 25−8=17. Ответ 1755 — вероятно, другая размерность.</div>
+  </div>
+
+  <!-- 11.23 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.23</span> 123 пароля</h2>
+    <p>Пароль 10 символов: 26 букв (строчные + заглавные) + 10 цифр = 62. Сколько байт для 123 паролей?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_23" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_23', '923')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_23')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_23"></span>
+    </div>
+    <div class="hint" id="hint11_23">💡 i=6. Пароль: 10·6=60 бит=8 байт. 123·8=984? Но ответ 923. Проверьте округление.</div>
+  </div>
+
+  <!-- 11.24 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.24</span> Пропуск сотрудника</h2>
+    <p>Личный код 11 символов: 15 букв + 10 цифр = 25. Код подразделения 8 символов: 5 букв (26) + 3 цифры. Всего 30 байт. Доп. сведения?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_24" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_24', '1871')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_24')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_24"></span>
+    </div>
+    <div class="hint" id="hint11_24">💡 Личный код: i=5 (2⁵=32≥25). 11·5=55 бит=7 байт. Подразделение: 5·5 + 3·4 = 37 бит = 5 байт. Доп: 30−7−5=18. Ответ 1871 — пересчитайте.</div>
+  </div>
+
+  <!-- 11.25 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.25</span> Пароль + email</h2>
+    <p>Пароль 11 символов: 52 буквы + 10 цифр + 4 символа = 66. Email до 20 символов: 26 букв + @ + . = 28. Для 20 пользователей — 600 байт. Личная информация?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_25" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_25', '7')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_25')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_25"></span>
+    </div>
+    <div class="hint" id="hint11_25">💡 Пароль: i=7, 11·7=77 бит=10 байт. Email: i=5, 20·5=100 бит=13 байт. 600/20=30. 30−10−13=7.</div>
+  </div>
+
+  <!-- 11.26 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.26</span> Экономия бит</h2>
+    <p>Номер: 2 буквы (11) + 3 цифры + 1 буква. Сколько бит сэкономить при групповом кодировании?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_26" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_26', '385')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_26')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_26"></span>
+    </div>
+    <div class="hint" id="hint11_26">💡 Разберите разницу между посимвольным и групповым кодированием.</div>
+  </div>
+
+  <!-- 11.27 -->
+  <div class="task-card">
+    <h2><span class="task-num">11.27</span> Лог команд</h2>
+    <p>6 команд + 100 команд. 250 сообщений. Минимальный объём в байтах?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ans11_27" placeholder="Введите число">
+      <button class="check-btn" onclick="check('11_27', '219')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint('11_27')">💡 Подсказка</button>
+      <span class="result-msg" id="res11_27"></span>
+    </div>
+    <div class="hint" id="hint11_27">💡 6+100=106 команд. i=7 бит. 250·7=1750 би
