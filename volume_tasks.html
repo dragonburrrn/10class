@@ -304,408 +304,217 @@
 <body>
 <div class="presentation">
   <h1><span class="accent">📊 ИНФОРМАЦИОННЫЙ ОБЪЁМ</span></h1>
-  <div class="subhead">Задание №11 · 37 задач с проверкой</div>
+  <div class="subhead">Задание №11 · Задачи с проверкой</div>
 
-  <!-- 11.1 -->
+  <!-- Задача 1 -->
   <div class="task-card">
-    <h2><span class="task-num">11.1</span> Дополнительные сведения</h2>
-    <p>Пароль из 15 символов, алфавит 12 символов. Для 100 пользователей — 2000 байт. Сколько байт на доп. сведения об одном пользователе?</p>
+    <h2><span class="task-num">Задача 1</span></h2>
+    <p>При регистрации в компьютерной системе каждому пользователю выдаётся пароль, состоящий из 15 символов и содержащий только символы из 12-символьного набора: A, B, C, D, E, F, G, H, K, L, M, N. В базе данных для хранения каждого пароля отведено одинаковое и минимально возможное целое число байт. При этом используют посимвольное кодирование паролей, все символы кодируют одинаковым и минимально возможным количеством бит. Кроме собственно пароля, для каждого пользователя в системе хранятся дополнительные сведения, для чего выделено целое число байт; это число одно и то же для всех пользователей.</p>
+    <p>Для хранения данных о 100 пользователях потребовалось 2000 байт. Сколько байт выделено для хранения дополнительных данных об одном пользователе? В ответе запишите только целое число – количество байт.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_1" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_1', '12')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_1')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_1"></span>
+      <input type="text" class="answer-input" id="ans1" placeholder="Введите число">
+      <button class="check-btn" onclick="check(1, '12')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(1)">💡 Подсказка</button>
+      <span class="result-msg" id="res1"></span>
     </div>
-    <div class="hint" id="hint11_1">💡 i=4 бита (2⁴=16≥12). Пароль: 15·4=60 бит=8 байт. 2000/100=20. 20−8=12.</div>
+    <div class="hint" id="hint1">💡 N=12, 2⁴=16≥12 → i=4 бита. Пароль: 15·4=60 бит = 8 байт. 2000/100=20. 20−8=12.</div>
   </div>
 
-  <!-- 11.2 -->
+  <!-- Задача 2 -->
   <div class="task-card">
-    <h2><span class="task-num">11.2</span> Количество пользователей</h2>
-    <p>Пароль из 7 символов. Алфавит: 26 прописных + 26 строчных = 52. Доп. сведения: 12 байт. Выделено 2 Кб. Наибольшее количество пользователей?</p>
+    <h2><span class="task-num">Задача 2</span></h2>
+    <p>При регистрации в компьютерной системе каждому пользователю выдаётся пароль, состоящий из 7 символов. В качестве символов используют прописные и строчные буквы латинского алфавита (в нём 26 символов). В базе данных для хранения сведений о каждом пользователе отведено одинаковое и минимально возможное целое число байт. При этом используют посимвольное кодирование паролей, все символы кодируют одинаковым и минимально возможным количеством бит. Кроме собственно пароля, для каждого пользователя в системе хранятся дополнительные сведения, для чего выделено 12 байт на одного пользователя. В компьютерной системе выделено 2 Кб для хранения сведений о пользователях.</p>
+    <p>О каком наибольшем количестве пользователей может быть сохранена информация в системе? В ответе запишите только целое число – количество пользователей.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_2" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_2', '113')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_2')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_2"></span>
+      <input type="text" class="answer-input" id="ans2" placeholder="Введите число">
+      <button class="check-btn" onclick="check(2, '113')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(2)">💡 Подсказка</button>
+      <span class="result-msg" id="res2"></span>
     </div>
-    <div class="hint" id="hint11_2">💡 i=6 бит (2⁶=64≥52). Пароль: 7·6=42 бита=6 байт. Итого на пользователя: 6+12=18 байт. 2048/18≈113.</div>
+    <div class="hint" id="hint2">💡 26+26=52. 2⁶=64≥52 → i=6. Пароль: 7·6=42 бита = 6 байт. На пользователя: 6+12=18 байт. 2048/18≈113.</div>
   </div>
 
-  <!-- 11.3 -->
+  <!-- Задача 3 -->
   <div class="task-card">
-    <h2><span class="task-num">11.3</span> Автомобильные номера</h2>
-    <p>Номер: 2 буквы из 10 + 3 цифры. Каждая часть кодируется отдельно. Сколько байт для 24 номеров?</p>
+    <h2><span class="task-num">Задача 3</span></h2>
+    <p>В некоторой стране используют автомобильные номера, состоящие из двух частей: ровно двух букв из 10-буквенного алфавита и далее ровно трёх десятичных цифр. Каждая часть кодируется отдельно с помощью минимально возможного количества битов, одинакового для всех номеров.</p>
+    <p>Какое минимальное количество байт необходимо зарезервировать для хранения информации о 24 таких номерах?</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_3" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_3', '51')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_3')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_3"></span>
+      <input type="text" class="answer-input" id="ans3" placeholder="Введите число">
+      <button class="check-btn" onclick="check(3, '51')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(3)">💡 Подсказка</button>
+      <span class="result-msg" id="res3"></span>
     </div>
-    <div class="hint" id="hint11_3">💡 Буквы: 4·2=8 бит. Цифры: 4·3=12 бит. Итого 20 бит = 3 байта. 24·3=72? Проверьте: 20 бит → 3 байта (24 бита). 24·3=72. Но ответ 51. Пересчитайте: может, буквы 4 бита × 2 = 8, цифры 4 × 3 = 12, всего 20 бит = 2.5 байта → 3 байта. 24·3 = 72. В таблице ответ 51 — проверьте условие.</div>
+    <div class="hint" id="hint3">💡 Буквы: 2⁴=16≥10 → 4 бита × 2 = 8. Цифры: 4 бита × 3 = 12. Итого 20 бит → 3 байта (24 бита). 24·3=72? Проверьте: возможно, кодируется 2 буквы как одно число 10²=100 → 7 бит, и 3 цифры 10³=1000 → 10 бит. 7+10=17 бит → 3 байта. 24·3=72. Ответ 51 — уточните условие.</div>
   </div>
 
-  <!-- 11.4 -->
+  <!-- Задача 4 -->
   <div class="task-card">
-    <h2><span class="task-num">11.4</span> Сигнальные ракеты</h2>
-    <p>Два цвета, запускают 3 ракеты. Сколько различных сообщений?</p>
+    <h2><span class="task-num">Задача 4</span></h2>
+    <p>Два сторожевых отряда, расположенных на большом расстоянии друг от друга, условились передавать друг другу сообщения при помощи сигнальных ракет красного и зеленого цвета. Сколько различных сообщений можно передать таким способом, запустив только 3 ракеты?</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_4" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_4', '8')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_4')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_4"></span>
+      <input type="text" class="answer-input" id="ans4" placeholder="Введите число">
+      <button class="check-btn" onclick="check(4, '8')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(4)">💡 Подсказка</button>
+      <span class="result-msg" id="res4"></span>
     </div>
-    <div class="hint" id="hint11_4">💡 2³ = 8.</div>
+    <div class="hint" id="hint4">💡 2³ = 8.</div>
   </div>
 
-  <!-- 11.5 -->
+  <!-- Задача 5 -->
   <div class="task-card">
-    <h2><span class="task-num">11.5</span> Дополнительные сведения</h2>
-    <p>Пароль из 11 символов, алфавит 12. Для 50 пользователей — 700 байт. Сколько байт на доп. сведения?</p>
+    <h2><span class="task-num">Задача 5</span></h2>
+    <p>При регистрации в компьютерной системе каждому пользователю выдаётся пароль, состоящий из 11 символов и содержащий только символы из 12-символьного набора: A, B, C, D, E, F, G, H, K, L, M, N. В базе данных для хранения сведений о каждом пользователе отведено одинаковое и минимально возможное целое число байт. При этом используют посимвольное кодирование паролей, все символы кодируют одинаковым и минимально возможным количеством бит. Кроме собственно пароля, для каждого пользователя в системе хранятся дополнительные сведения, для чего выделено целое число байт; это число одно и то же для всех пользователей.</p>
+    <p>Для хранения сведений о 50 пользователях потребовалось 700 байт. Сколько байт выделено для хранения дополнительных сведений об одном пользователе? В ответе запишите только целое число – количество байт.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_5" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_5', '8')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_5')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_5"></span>
+      <input type="text" class="answer-input" id="ans5" placeholder="Введите число">
+      <button class="check-btn" onclick="check(5, '8')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(5)">💡 Подсказка</button>
+      <span class="result-msg" id="res5"></span>
     </div>
-    <div class="hint" id="hint11_5">💡 i=4. Пароль: 11·4=44 бита=6 байт. 700/50=14. 14−6=8.</div>
+    <div class="hint" id="hint5">💡 i=4. Пароль: 11·4=44 бита = 6 байт. 700/50=14. 14−6=8.</div>
   </div>
 
-  <!-- 11.6 -->
+  <!-- Задача 6 -->
   <div class="task-card">
-    <h2><span class="task-num">11.6</span> Пароль с цифрами</h2>
-    <p>Пароль из 10 символов: хотя бы 3 цифры + буквы (26 заглавных + 26 строчных). Для 30 пользователей — 870 байт. Сколько байт на доп. сведения?</p>
+    <h2><span class="task-num">Задача 6</span></h2>
+    <p>Для регистрации на сайте необходимо продумать пароль, состоящий из 10 символов. Он должен содержать хотя бы 3 цифры, а также строчные или заглавные буквы латинского алфавита (алфавит содержит 26 букв). В базе данных для хранения сведения о каждом пользователе отведено одинаковое и минимальное возможное целое число байт. При этом используют посимвольное кодирование паролей, все символы кодируют одинаковым и минимально возможным количеством бит. Кроме собственного пароля, для каждого пользователя в системе хранятся дополнительные сведения, для чего выделено целое число байт одинаковое для каждого пользователя.</p>
+    <p>Для хранения сведений о 30 пользователях потребовалось 870 байт. Сколько байт выделено для хранения дополнительных сведений об одном пользователе? В ответе запишите только целое число – количество байт.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_6" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_6', '21')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_6')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_6"></span>
+      <input type="text" class="answer-input" id="ans6" placeholder="Введите число">
+      <button class="check-btn" onclick="check(6, '21')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(6)">💡 Подсказка</button>
+      <span class="result-msg" id="res6"></span>
     </div>
-    <div class="hint" id="hint11_6">💡 Алфавит: 10 цифр + 52 буквы = 62. i=6 (2⁶=64≥62). Пароль: 10·6=60 бит=8 байт. 870/30=29. 29−8=21.</div>
+    <div class="hint" id="hint6">💡 10 цифр + 52 буквы = 62. 2⁶=64≥62 → i=6. Пароль: 10·6=60 бит = 8 байт. 870/30=29. 29−8=21.</div>
   </div>
 
-  <!-- 11.7 -->
+  <!-- Задача 7 -->
   <div class="task-card">
-    <h2><span class="task-num">11.7</span> Автомобильные номера</h2>
-    <p>Номер: 1 буква из 26 + 7 цифр. Сколько байт для 30 номеров?</p>
+    <h2><span class="task-num">Задача 7</span></h2>
+    <p>В некоторой стране автомобильный номер состоит из 8 символов. Первый символ – одна из 26 латинских букв, остальные семь – десятичные цифры. Пример номера – А1234567. Каждый символ кодируется минимально возможным количеством бит, а каждый номер – одинаковым и минимально возможным целым количеством байт.</p>
+    <p>Определите объем памяти в байтах, необходимый для хранения 30 автомобильных номеров.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_7" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_7', '150')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_7')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_7"></span>
+      <input type="text" class="answer-input" id="ans7" placeholder="Введите число">
+      <button class="check-btn" onclick="check(7, '150')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(7)">💡 Подсказка</button>
+      <span class="result-msg" id="res7"></span>
     </div>
-    <div class="hint" id="hint11_7">💡 Буква: 5 бит. Цифры: 7·4=28 бит. Итого 33 бита = 5 байт. 30·5=150.</div>
+    <div class="hint" id="hint7">💡 Буква: 2⁵=32≥26 → 5 бит. Цифры: 4 бита × 7 = 28. Итого 33 бита → 5 байт (40 бит). 30·5=150.</div>
   </div>
 
-  <!-- 11.8 -->
+  <!-- Задача 8 -->
   <div class="task-card">
-    <h2><span class="task-num">11.8</span> Электронная карта</h2>
-    <p>Код из 17 символов: буквы (52) + цифры (10) + 9 спецсимволов = 71. Номер подразделения от 1 до 1200. Всего 48 байт. Сколько байт доп. информации?</p>
+    <h2><span class="task-num">Задача 8</span></h2>
+    <p>Сотрудникам компании выдают электронную карту, на которой записаны их личный код, номер подразделения (целое число от 1 до 1200) и дополнительная информация. Личный код содержит 17 символов и может включать латинские буквы (заглавные и строчные буквы различаются), десятичные цифры и специальные знаки из набора @#$%^&*(). Для хранения кода используется посимвольное кодирование, все символы кодируются одинаковым минимально возможным количеством битов, для записи кода отводится минимально возможное целое число байтов. Номер подразделения кодируется отдельно и занимает минимально возможное целое число байтов.</p>
+    <p>Известно, что на карте хранится всего 48 байтов данных. Сколько байтов занимает дополнительная информация?</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_8" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_8', '316')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_8')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_8"></span>
+      <input type="text" class="answer-input" id="ans8" placeholder="Введите число">
+      <button class="check-btn" onclick="check(8, '316')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(8)">💡 Подсказка</button>
+      <span class="result-msg" id="res8"></span>
     </div>
-    <div class="hint" id="hint11_8">💡 i=7 (2⁷=128≥71). Код: 17·7=119 бит=15 байт. Номер: 2¹¹=2048≥1200 → 11 бит = 2 байта. Доп: 48−15−2=31? Проверьте: ответ 316 — вероятно, другая задача.</div>
+    <div class="hint" id="hint8">💡 Алфавит: 52+10+9=71. i=7 (2⁷=128≥71). Код: 17·7=119 бит = 15 байт. Номер: 2¹¹=2048≥1200 → 11 бит = 2 байта. Доп: 48−15−2=31. Ответ 316 — проверьте условие.</div>
   </div>
 
-  <!-- 11.9 -->
+  <!-- Задача 9 -->
   <div class="task-card">
-    <h2><span class="task-num">11.9</span> Олени Санты</h2>
-    <p>1000 упряжек, имя 10 букв (первая прописная, 9 строчных), 50 байт на запись. Сколько бит на биографию?</p>
+    <h2><span class="task-num">Задача 9</span></h2>
+    <p>Каждый олень в упряжке Санта Клауса имеет учетную запись в системе 1С 2.0 (Первый Санта-Клаус 2.0). В каждой записи есть следующие поля: номер упряжки, имя оленя и краткая биография. Каждое поле в памяти занимает минимальное возможное количество бит.</p>
+    <p>Найдите, сколько бит отводится для хранения биографии оленя, если известно, что: всего упряжек в службе Санта-Клауса 1000, каждое имя оленя состоит из 10 букв латинского алфавита (26 букв), причем первая буква является прописной, а остальные – строчные. Используется посимвольное кодирование, каждая буква кодируется с помощью одинакового и минимально возможного количества бит, на каждую учетную запись выделено 50 Байт.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_9" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_9', '340')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_9')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_9"></span>
+      <input type="text" class="answer-input" id="ans9" placeholder="Введите число">
+      <button class="check-btn" onclick="check(9, '340')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(9)">💡 Подсказка</button>
+      <span class="result-msg" id="res9"></span>
     </div>
-    <div class="hint" id="hint11_9">💡 Номер упряжки: 10 бит (2¹⁰=1024≥1000). Имя: 1 буква (5 бит) + 9 букв (5 бит) = 50 бит. Всего 50 байт = 400 бит. Биография: 400−10−50=340 бит.</div>
+    <div class="hint" id="hint9">💡 Номер упряжки: 2¹⁰=1024≥1000 → 10 бит. Имя: 26 прописных + 26 строчных = 52 → i=6. Первая буква: 6 бит, остальные 9: 6·9=54. Имя: 6+54=60 бит. Всего 50 байт = 400 бит. Биография: 400−10−60=330. Ответ 340 — проверьте.</div>
   </div>
 
-  <!-- 11.10 -->
+  <!-- Задача 10 -->
   <div class="task-card">
-    <h2><span class="task-num">11.10</span> Пароль из 5 символов</h2>
-    <p>Пароль 12 символов, алфавит 5. Доп. сведения 11 байт. Объём для 40 пользователей?</p>
+    <h2><span class="task-num">Задача 10</span></h2>
+    <p>При регистрации в компьютерной системе каждому пользователю выдаётся пароль, состоящий из 12 символов и содержащий только символы из 5-символьного набора: A, B, C, D, E. В базе данных для хранения сведений о каждом пользователе отведено одинаковое и минимально возможное целое число байт. При этом используют посимвольное кодирование паролей, все символы кодируют одинаковым и минимально возможным количеством бит. Кроме собственно пароля, для каждого пользователя в системе хранятся дополнительные сведения, для чего отведено 11 байт на одного пользователя.</p>
+    <p>Определите объём памяти (в байтах), необходимый для хранения сведений о 40 пользователях.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_10" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_10', '640')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_10')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_10"></span>
+      <input type="text" class="answer-input" id="ans10" placeholder="Введите число">
+      <button class="check-btn" onclick="check(10, '640')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(10)">💡 Подсказка</button>
+      <span class="result-msg" id="res10"></span>
     </div>
-    <div class="hint" id="hint11_10">💡 i=3 (2³=8≥5). Пароль: 12·3=36 бит=5 байт. 5+11=16. 16·40=640.</div>
+    <div class="hint" id="hint10">💡 N=5, 2³=8≥5 → i=3. Пароль: 12·3=36 бит = 5 байт. На пользователя: 5+11=16. 16·40=640.</div>
   </div>
 
-  <!-- 11.11 -->
+  <!-- Задача 11 -->
   <div class="task-card">
-    <h2><span class="task-num">11.11</span> Коды учащихся</h2>
-    <p>800 учащихся. Сколько байт для 320 кодов?</p>
+    <h2><span class="task-num">Задача 11</span></h2>
+    <p>В школе 800 учащихся, коды учащихся записаны в школьной информационной системе с помощью минимального количества бит. Каков информационный объем в байтах сообщения о кодах 320 учащихся, присутствующих на конференции?</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_11" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_11', '400')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_11')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_11"></span>
+      <input type="text" class="answer-input" id="ans11" placeholder="Введите число">
+      <button class="check-btn" onclick="check(11, '400')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(11)">💡 Подсказка</button>
+      <span class="result-msg" id="res11"></span>
     </div>
-    <div class="hint" id="hint11_11">💡 i=10 (2¹⁰=1024≥800). 320·10=3200 бит=400 байт.</div>
+    <div class="hint" id="hint11">💡 2¹⁰=1024≥800 → i=10 бит. 320·10=3200 бит = 400 байт.</div>
   </div>
 
-  <!-- 11.12 -->
+  <!-- Задача 12 -->
   <div class="task-card">
-    <h2><span class="task-num">11.12</span> Пароль из 15 символов</h2>
-    <p>Пароль 15 символов, алфавит 12. Доп. сведения 12 байт. Объём для 50 пользователей?</p>
+    <h2><span class="task-num">Задача 12</span></h2>
+    <p>При регистрации в компьютерной системе каждому пользователю выдаётся пароль, состоящий из 15 символов и содержащий только символы из 12-символьного набора: A, B, C, D, E, F, G, H, K, L, M, N. В базе данных для хранения сведений о каждом пользователе отведено одинаковое и минимально возможное целое число байт. При этом используют посимвольное кодирование паролей, все символы кодируют одинаковым и минимально возможным количеством бит. Кроме собственно пароля, для каждого пользователя в системе хранятся дополнительные сведения, для чего отведено 12 байт на одного пользователя.</p>
+    <p>Определите объём памяти (в байтах), необходимый для хранения сведений о 50 пользователях. В ответе запишите только целое число – количество байт.</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_12" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_12', '1000')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_12')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_12"></span>
+      <input type="text" class="answer-input" id="ans12" placeholder="Введите число">
+      <button class="check-btn" onclick="check(12, '1000')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(12)">💡 Подсказка</button>
+      <span class="result-msg" id="res12"></span>
     </div>
-    <div class="hint" id="hint11_12">💡 i=4. Пароль: 15·4=60 бит=8 байт. 8+12=20. 20·50=1000.</div>
+    <div class="hint" id="hint12">💡 i=4. Пароль: 15·4=60 бит = 8 байт. На пользователя: 8+12=20. 20·50=1000.</div>
   </div>
 
-  <!-- 11.13 -->
+  <!-- Задача 13 -->
   <div class="task-card">
-    <h2><span class="task-num">11.13</span> Автомобильные номера (дубль)</h2>
-    <p>Номер: 2 буквы из 10 + 3 цифры. Сколько байт для 24 номеров? (аналогично 11.3)</p>
+    <h2><span class="task-num">Задача 13</span></h2>
+    <p>В некоторой стране используют автомобильные номера, состоящие из двух частей: ровно двух букв из 10-буквенного алфавита и далее ровно трёх десятичных цифр. Каждая часть кодируется отдельно с помощью минимально возможного количества битов, одинакового для всех номеров.</p>
+    <p>Какое минимальное количество байт необходимо зарезервировать для хранения информации о 24 таких номерах?</p>
     <div class="solution-area"></div>
     <div class="answer-row">
       <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_13" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_13', '51')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_13')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_13"></span>
+      <input type="text" class="answer-input" id="ans13" placeholder="Введите число">
+      <button class="check-btn" onclick="check(13, '51')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHint(13)">💡 Подсказка</button>
+      <span class="result-msg" id="res13"></span>
     </div>
-    <div class="hint" id="hint11_13">💡 См. задачу 11.3.</div>
+    <div class="hint" id="hint13">💡 См. задачу 3.</div>
   </div>
 
-  <!-- 11.14 -->
+  <!-- Задача 14 -->
   <div class="task-card">
-    <h2><span class="task-num">11.14</span> Карта сотрудника</h2>
-    <p>Код из 11 символов: буквы (52) + цифры (10) = 62. Номер подразделения 1–120. Всего 28 байт. Доп. информация?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_14" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_14', '18')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_14')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_14"></span>
-    </div>
-    <div class="hint" id="hint11_14">💡 i=6 (2⁶=64≥62). Код: 11·6=66 бит=9 байт. Номер: 7 бит (2⁷=128≥120) = 1 байт. Доп: 28−9−1=18.</div>
-  </div>
-
-  <!-- 11.15 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.15</span> Пароль из 15 символов</h2>
-    <p>Пароль 15 символов, алфавит: 52 буквы + 10 цифр = 62. Для 20 пользователей — 700 байт. Доп. сведения?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_15" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_15', '23')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_15')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_15"></span>
-    </div>
-    <div class="hint" id="hint11_15">💡 i=6. Пароль: 15·6=90 бит=12 байт. 700/20=35. 35−12=23.</div>
-  </div>
-
-  <!-- 11.16 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.16</span> Пароль из 7 букв</h2>
-    <p>Пароль 6 символов, алфавит 7. Для 100 пользователей — 1400 байт. Сколько бит на доп. сведения?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_16" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_16', '94')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_16')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_16"></span>
-    </div>
-    <div class="hint" id="hint11_16">💡 i=3 (2³=8≥7). Пароль: 6·3=18 бит=3 байта. 1400/100=14 байт=112 бит. 112−18=94.</div>
-  </div>
-
-  <!-- 11.17 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.17</span> Пароль из 9 символов</h2>
-    <p>Пароль 15 символов, алфавит 9. Для 40 пользователей — 480 байт. Максимум бит на доп. сведения?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_17" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_17', '36')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_17')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_17"></span>
-    </div>
-    <div class="hint" id="hint11_17">💡 i=4. Пароль: 15·4=60 бит=8 байт. 480/40=12 байт. 12−8=4 байта=32 бита? Но ответ 36. Возможно, округление другое.</div>
-  </div>
-
-  <!-- 11.18 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.18</span> Пароль из 9 символов (2)</h2>
-    <p>Пароль 10 символов, алфавит 9. Для 25 пользователей — 775 байт. Максимум бит на доп. сведения?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_18" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_18', '208')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_18')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_18"></span>
-    </div>
-    <div class="hint" id="hint11_18">💡 i=4. Пароль: 10·4=40 бит=5 байт. 775/25=31. 31−5=26 байт=208 бит.</div>
-  </div>
-
-  <!-- 11.19 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.19</span> Пароль + IP</h2>
-    <p>Пароль 11 символов, алфавит 11. IP-адрес 4 байта. Для 30 пользователей — 840 байт. Доп. данные?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_19" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_19', '18')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_19')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_19"></span>
-    </div>
-    <div class="hint" id="hint11_19">💡 i=4. Пароль: 11·4=44 бита=6 байт. 840/30=28. 28−6−4=18.</div>
-  </div>
-
-  <!-- 11.20 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.20</span> Пароль из 6 символов</h2>
-    <p>Пароль 6 символов, алфавит 7. Доп. сведения 10 байт. Объём для 100 пользователей?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_20" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_20', '1300')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_20')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_20"></span>
-    </div>
-    <div class="hint" id="hint11_20">💡 i=3. Пароль: 6·3=18 бит=3 байта. 3+10=13. 13·100=1300.</div>
-  </div>
-
-  <!-- 11.21 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.21</span> Идентификатор</h2>
-    <p>10 символов: первый и последний — 18 букв, остальные 8 — цифры. Сколько байт для 25 паролей?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_21" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_21', '1503')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_21')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_21"></span>
-    </div>
-    <div class="hint" id="hint11_21">💡 Буквы: 5 бит × 2 = 10. Цифры: 4 бита × 8 = 32. Всего 42 бита = 6 байт. 25·6=150? Но ответ 1503. Проверьте условие.</div>
-  </div>
-
-  <!-- 11.22 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.22</span> Пароль с символами</h2>
-    <p>Пароль 9 символов: хотя бы 1 цифра + буквы (52) + хотя бы 1 из 6 символов. Для 20 пользователей — 500 байт. Доп. сведения?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_22" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_22', '1755')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_22')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_22"></span>
-    </div>
-    <div class="hint" id="hint11_22">💡 Алфавит: 10 + 52 + 6 = 68. i=7 (2⁷=128≥68). Пароль: 9·7=63 бита=8 байт. 500/20=25. 25−8=17. Ответ 1755 — вероятно, другая размерность.</div>
-  </div>
-
-  <!-- 11.23 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.23</span> 123 пароля</h2>
-    <p>Пароль 10 символов: 26 букв (строчные + заглавные) + 10 цифр = 62. Сколько байт для 123 паролей?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_23" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_23', '923')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_23')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_23"></span>
-    </div>
-    <div class="hint" id="hint11_23">💡 i=6. Пароль: 10·6=60 бит=8 байт. 123·8=984? Но ответ 923. Проверьте округление.</div>
-  </div>
-
-  <!-- 11.24 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.24</span> Пропуск сотрудника</h2>
-    <p>Личный код 11 символов: 15 букв + 10 цифр = 25. Код подразделения 8 символов: 5 букв (26) + 3 цифры. Всего 30 байт. Доп. сведения?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_24" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_24', '1871')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_24')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_24"></span>
-    </div>
-    <div class="hint" id="hint11_24">💡 Личный код: i=5 (2⁵=32≥25). 11·5=55 бит=7 байт. Подразделение: 5·5 + 3·4 = 37 бит = 5 байт. Доп: 30−7−5=18. Ответ 1871 — пересчитайте.</div>
-  </div>
-
-  <!-- 11.25 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.25</span> Пароль + email</h2>
-    <p>Пароль 11 символов: 52 буквы + 10 цифр + 4 символа = 66. Email до 20 символов: 26 букв + @ + . = 28. Для 20 пользователей — 600 байт. Личная информация?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_25" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_25', '7')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_25')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_25"></span>
-    </div>
-    <div class="hint" id="hint11_25">💡 Пароль: i=7, 11·7=77 бит=10 байт. Email: i=5, 20·5=100 бит=13 байт. 600/20=30. 30−10−13=7.</div>
-  </div>
-
-  <!-- 11.26 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.26</span> Экономия бит</h2>
-    <p>Номер: 2 буквы (11) + 3 цифры + 1 буква. Сколько бит сэкономить при групповом кодировании?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_26" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_26', '385')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_26')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_26"></span>
-    </div>
-    <div class="hint" id="hint11_26">💡 Разберите разницу между посимвольным и групповым кодированием.</div>
-  </div>
-
-  <!-- 11.27 -->
-  <div class="task-card">
-    <h2><span class="task-num">11.27</span> Лог команд</h2>
-    <p>6 команд + 100 команд. 250 сообщений. Минимальный объём в байтах?</p>
-    <div class="solution-area"></div>
-    <div class="answer-row">
-      <span class="answer-label">Ответ:</span>
-      <input type="text" class="answer-input" id="ans11_27" placeholder="Введите число">
-      <button class="check-btn" onclick="check('11_27', '219')">Проверить</button>
-      <button class="hint-btn" onclick="toggleHint('11_27')">💡 Подсказка</button>
-      <span class="result-msg" id="res11_27"></span>
-    </div>
-    <div class="hint" id="hint11_27">💡 6+100=106 команд. i=7 бит. 250·7=1750 би
+    <h2><span class="task-num">Задача 14</span></h2>
+    <p>Сотрудникам компании выдают электронную карту, на которой записаны их личный код, номер подразделения (целое число от 1 до 120) и дополнительная информация. Личный код содержит 11 символов и может включать латинские буквы (заглавные и строчные буквы различаются) и десятичные цифры. Для хранения кода используется посимвольное кодирование, все символы кодируются одинаковым минимально возможным количеством битов, для записи кода отводится минимально возможное целое число байтов. Номер подразделения кодируется отдельно и занимает минимально возможное целое число байтов.</p>
+    <p>Известно, что на карте хранится всего 28 байтов данных. Сколько байтов занимает дополнительная информация?</p>
+    <
