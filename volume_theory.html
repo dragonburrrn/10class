@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Информационный объём | Теория</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f7fb;
+      background-image: radial-gradient(#d8e3f0 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #1e2a3a;
+    }
+
+    .presentation {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 50px -20px rgba(30, 60, 100, 0.25), 0 0 0 1px rgba(120, 160, 200, 0.15);
+      padding: 40px 48px 48px;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+
+    h1 .accent {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subhead {
+      text-align: center;
+      font-size: 1.05rem;
+      color: #6b7f99;
+      margin-bottom: 36px;
+      border-bottom: 2px dashed #d8e3f0;
+      padding-bottom: 20px;
+    }
+
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: #fbfdff;
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid #e1eaf5;
+      box-shadow: 0 4px 16px -8px rgba(30, 60, 100, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: #b8d4f0;
+      box-shadow: 0 8px 24px -10px rgba(30, 60, 100, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p, .card li {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #3b4d63;
+    }
+
+    .card ul, .card ol {
+      padding-left: 24px;
+      margin: 12px 0;
+    }
+
+    .card li { margin-bottom: 8px; }
+
+    .highlight {
+      color: #1a5fb4;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #eaf3fe;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid #cfe3fa;
+    }
+
+    .formula {
+      background: #eef6ff;
+      border-radius: 16px;
+      padding: 18px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 1.15rem;
+      color: #0b4a8f;
+      font-weight: 700;
+      margin: 16px 0;
+      border: 1px solid #cfe3fa;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .accent-block {
+      background: #eaf3fe;
+      border-left: 4px solid #4dabf7;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      color: #1e3a5f;
+    }
+
+    .accent-block strong { color: #1a5fb4; }
+
+    .example-block {
+      background: #f0f9f4;
+      border-left: 4px solid #34a853;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 16px 0;
+      color: #1e3a5f;
+    }
+
+    .example-block .example-title {
+      font-weight: 700;
+      color: #1e7e34;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .example-block p { margin-bottom: 8px; }
+    .example-block ul, .example-block ol { margin: 8px 0; }
+
+    .units-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      background: #f2f8ff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #cfe3fa;
+    }
+
+    .units-table th, .units-table td {
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid #d8e3f0;
+      color: #1e3a5f;
+      font-size: 0.98rem;
+    }
+
+    .units-table th {
+      background: #eaf3fe;
+      font-weight: 700;
+      color: #1a5fb4;
+    }
+
+    .units-table tr:last-child td { border-bottom: none; }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid #eef3f9;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border: none;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px -8px rgba(44, 123, 229, 0.6);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #1a5fb4, #2c7be5);
+      transform: translateY(-2px);
+    }
+
+    .btn.secondary {
+      background: #ffffff;
+      color: #1a5fb4;
+      border: 2px solid #cfe3fa;
+      box-shadow: none;
+    }
+
+    .btn.secondary:hover {
+      background: #eaf3fe;
+      border-color: #4dabf7;
+    }
+
+    @media (max-width: 800px) {
+      .presentation { padding: 24px; }
+      h1 { font-size: 1.9rem; }
+      .theory-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  <h1><span class="accent">📊 ИНФОРМАЦИОННЫЙ ОБЪЁМ</span></h1>
+  <div class="subhead">10 класс · Формула Хартли · Алфавитный подход · Единицы измерения</div>
+
+  <div class="theory-grid">
+    <!-- 1. Что такое информационный объём -->
+    <div class="card">
+      <h2>📦 Информационный объём</h2>
+      <p><span class="highlight">Информационный объём</span> — количество информации, которое содержит сообщение.</p>
+      <p>Измеряется в битах, байтах и производных единицах.</p>
+      <div class="accent-block">
+        <strong>1 бит</strong> — минимальная единица информации. Один бит содержит ответ на вопрос «да/нет».
+      </div>
+    </div>
+
+    <!-- 2. Формула Хартли -->
+    <div class="card">
+      <h2>🧮 Формула Хартли</h2>
+      <p>Связывает количество возможных событий (N) и количество информации (i):</p>
+      <div class="formula">N = 2ⁱ  ⟺  i = log₂N</div>
+      <p>где i — количество бит на одно событие, N — количество возможных событий.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p>Сколько бит нужно, чтобы закодировать 8 различных сигналов?</p>
+        <div class="formula">8 = 2ⁱ → i = 3 бита</div>
+      </div>
+    </div>
+
+    <!-- 3. Алфавитный подход -->
+    <div class="card">
+      <h2>🔤 Алфавитный подход</h2>
+      <p><span class="highlight">Мощность алфавита (N)</span> — количество символов в алфавите.</p>
+      <p>Каждый символ кодируется <strong>i</strong> битами, где 2ⁱ ≥ N (округление вверх).</p>
+      <div class="formula">I = K · i</div>
+      <p>где I — информационный объём сообщения, K — количество символов, i — бит на символ.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p>Сообщение из 100 символов, алфавит 32 символа.</p>
+        <p>i = log₂32 = 5 бит. I = 100 · 5 = 500 бит.</p>
+      </div>
+    </div>
+
+    <!-- 4. Единицы измерения -->
+    <div class="card">
+      <h2>📏 Единицы измерения</h2>
+      <table class="units-table">
+        <tr><th>Единица</th><th>Значение</th></tr>
+        <tr><td>1 байт</td><td>8 бит</td></tr>
+        <tr><td>1 Кб</td><td>1024 байта</td></tr>
+        <tr><td>1 Мб</td><td>1024 Кб</td></tr>
+        <tr><td>1 Гб</td><td>1024 Мб</td></tr>
+      </table>
+      <div class="accent-block">
+        <strong>Важно:</strong> при переводе бит → байты делим на 8 с округлением вверх, если объём должен быть целым числом байт.
+      </div>
+    </div>
+
+    <!-- 5. Пароли и идентификаторы -->
+    <div class="card">
+      <h2>🔐 Пароли и идентификаторы</h2>
+      <p><strong>Алгоритм решения:</strong></p>
+      <ol>
+        <li>Определить мощность алфавита N.</li>
+        <li>Найти i = минимальное целое, при котором 2ⁱ ≥ N.</li>
+        <li>Объём пароля = K · i бит.</li>
+        <li>Перевести в байты (округление вверх).</li>
+        <li>Учесть дополнительные сведения.</li>
+      </ol>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p>Пароль из 10 символов, алфавит 26 букв.</p>
+        <p>2⁵ = 32 ≥ 26 → i = 5 бит. Пароль: 10·5 = 50 бит = 7 байт (округление вверх).</p>
+      </div>
+    </div>
+
+    <!-- 6. Автомобильные номера -->
+    <div class="card">
+      <h2>🚗 Автомобильные номера</h2>
+      <p>Если номер состоит из нескольких частей, каждая кодируется отдельно.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p>Номер: 2 буквы из 10 + 3 цифры.</p>
+        <ul>
+          <li>Буквы: 2⁴ = 16 ≥ 10 → i₁ = 4 бита × 2 = 8 бит.</li>
+          <li>Цифры: 2⁴ = 16 ≥ 10 → i₂ = 4 бита × 3 = 12 бит.</li>
+          <li>Итого: 8 + 12 = 20 бит = 3 байта (округление вверх).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 7. Дополнительные сведения -->
+    <div class="card">
+      <h2>📋 Дополнительные сведения</h2>
+      <p>В задачах часто дано: <em>«для хранения данных о X пользователях потребовалось Y байт»</em>.</p>
+      <p><strong>Алгоритм:</strong></p>
+      <ol>
+        <li>Найти объём одного пароля в байтах.</li>
+        <li>Общий объём / X = байт на одного пользователя.</li>
+        <li>Вычесть объём пароля → получим доп. сведения.</li>
+      </ol>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p>100 пользователей, 2000 байт, пароль 15 символов из 12-буквенного алфавита.</p>
+        <ul>
+          <li>i = 4 бита (2⁴ = 16 ≥ 12). Пароль: 15·4 = 60 бит = 8 байт.</li>
+          <li>2000 / 100 = 20 байт на пользователя.</li>
+          <li>Доп. сведения: 20 − 8 = 12 байт.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 8. Датчики и серии -->
+    <div class="card">
+      <h2>📡 Датчики и серии</h2>
+      <p>Если значения считываются сериями, важно правильно округлять:</p>
+      <ul>
+        <li>Сначала — биты на одно значение.</li>
+        <li>Затем — биты на серию.</li>
+        <li>Перевод в байты — для каждой серии отдельно.</li>
+        <li>Итог — сумма по всем сериям, затем в Кб.</li>
+      </ul>
+      <div class="accent-block">
+        <strong>Совет:</strong> всегда проверяйте, округляется ли объём серии до целого числа байт <em>до</em> суммирования или <em>после</em>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Навигация -->
+  <div class="nav-buttons">
+    <a href="index.html" class="btn secondary">← На главную</a>
+    <a href="volume_tasks.html" class="btn">Перейти к заданиям →</a>
+  </div>
+</div>
+</body>
+</html>
