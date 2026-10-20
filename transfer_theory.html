@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Передача информации | Теория</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f7fb;
+      background-image: radial-gradient(#d8e3f0 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #1e2a3a;
+    }
+    .presentation {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 50px -20px rgba(30, 60, 100, 0.25), 0 0 0 1px rgba(120, 160, 200, 0.15);
+      padding: 40px 48px 48px;
+    }
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 1.05rem;
+      color: #6b7f99;
+      margin-bottom: 36px;
+      border-bottom: 2px dashed #d8e3f0;
+      padding-bottom: 20px;
+    }
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .card {
+      background: #fbfdff;
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid #e1eaf5;
+      box-shadow: 0 4px 16px -8px rgba(30, 60, 100, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      border-color: #b8d4f0;
+      box-shadow: 0 8px 24px -10px rgba(30, 60, 100, 0.18);
+      transform: translateY(-2px);
+    }
+    .card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card p, .card li {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #3b4d63;
+    }
+    .card ul, .card ol { padding-left: 24px; margin: 12px 0; }
+    .card li { margin-bottom: 8px; }
+    .highlight {
+      color: #1a5fb4;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #eaf3fe;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid #cfe3fa;
+    }
+    .formula {
+      background: #eef6ff;
+      border-radius: 16px;
+      padding: 18px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 1.15rem;
+      color: #0b4a8f;
+      font-weight: 700;
+      margin: 16px 0;
+      border: 1px solid #cfe3fa;
+      text-align: center;
+    }
+    .accent-block {
+      background: #eaf3fe;
+      border-left: 4px solid #4dabf7;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      color: #1e3a5f;
+    }
+    .accent-block strong { color: #1a5fb4; }
+    
+    /* Стили для диаграммы Гантта */
+    .gantt {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .gantt-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .gantt-label {
+      width: 80px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1e3a5f;
+      text-align: right;
+    }
+    .gantt-bar-container {
+      flex-grow: 1;
+      background: #f2f8ff;
+      border-radius: 8px;
+      height: 30px;
+      position: relative;
+      border: 1px solid #cfe3fa;
+      display: flex;
+    }
+    .gantt-bar {
+      height: 100%;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #fff;
+      font-weight: 700;
+      margin: 2px;
+    }
+    .gantt-axis {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 92px;
+      font-size: 0.8rem;
+      color: #7a94b0;
+      margin-top: 8px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid #eef3f9;
+    }
+    .btn {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border: none;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px -8px rgba(44, 123, 229, 0.6);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #1a5fb4, #2c7be5);
+      transform: translateY(-2px);
+    }
+    .btn.secondary {
+      background: #ffffff;
+      color: #1a5fb4;
+      border: 2px solid #cfe3fa;
+      box-shadow: none;
+    }
+    .btn.secondary:hover {
+      background: #eaf3fe;
+      border-color: #4dabf7;
+    }
+    @media (max-width: 800px) {
+      .presentation { padding: 24px; }
+      h1 { font-size: 1.9rem; }
+      .theory-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  <h1><span class="accent">📡 ПЕРЕДАЧА ИНФОРМАЦИИ</span></h1>
+  <div class="subhead">Каналы связи · Скорость передачи · Диаграмма Гантта</div>
+
+  <div class="theory-grid">
+    <!-- 1. Процесс передачи -->
+    <div class="card">
+      <h2>📤 Основы передачи информации</h2>
+      <p><span class="highlight">Передача информации</span> — это процесс перемещения данных от источника к получателю через канал связи.</p>
+      <p><strong>Схема передачи:</strong></p>
+      <ul>
+        <li><strong>Источник</strong> — отправитель данных.</li>
+        <li><strong>Кодирующее устройство</strong> — преобразует сигнал.</li>
+        <li><strong>Канал связи</strong> — среда передачи.</li>
+        <li><strong>Декодирующее устройство</strong> — восстанавливает данные.</li>
+        <li><strong>Получатель</strong> — принимает информацию.</li>
+      </ul>
+    </div>
+
+    <!-- 2. Скорость передачи -->
+    <div class="card">
+      <h2>⚡ Скорость передачи данных</h2>
+      <p><span class="highlight">Пропускная способность канала</span> — максимальное количество данных, передаваемых за единицу времени.</p>
+      <div class="formula">V = I / t</div>
+      <p>где V — скорость (бит/с), I — объём информации (бит), t — время (с).</p>
+      <div class="accent-block">
+        <strong>Пример:</strong> файл 10 Мбайт передаётся за 8 секунд. Скорость = (10 · 1024 · 1024 · 8) / 8 = 10 485 760 бит/с ≈ 10 Мбит/с.
+      </div>
+    </div>
+
+    <!-- 3. Диаграмма Гантта: определение -->
+    <div class="card">
+      <h2>📊 Что такое диаграмма Гантта?</h2>
+      <p><span class="highlight">Диаграмма Гантта</span> — это вид столбчатой диаграммы, используемый для планирования и визуализации последовательности задач (этапов) во времени.</p>
+      <p>Каждая задача изображается горизонтальной полосой, длина которой пропорциональна времени её выполнения. Положение полосы показывает время начала и окончания.</p>
+      <p><strong>Основные элементы:</strong></p>
+      <ul>
+        <li>Ось времени (горизонтальная шкала).</li>
+        <li>Список задач (вертикальная ось).</li>
+        <li>Полосы, показывающие длительность каждой задачи.</li>
+      </ul>
+    </div>
+
+    <!-- 4. Пример диаграммы Гантта -->
+    <div class="card">
+      <h2>📈 Пример диаграммы Гантта</h2>
+      <p>Допустим, нужно передать данные с ПК1 на ПК2 в три этапа:</p>
+      <ul>
+        <li><strong>Задача A:</strong> подготовка файла (2 с).</li>
+        <li><strong>Задача B:</strong> передача по каналу (4 с).</li>
+        <li><strong>Задача C:</strong> проверка целостности (3 с).</li>
+      </ul>
+      <div class="gantt">
+        <div class="gantt-row">
+          <div class="gantt-label">A (подг.)</div>
+          <div class="gantt-bar-container">
+            <div class="gantt-bar" style="width: 20%; background: #4dabf7;">2 с</div>
+          </div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">B (передача)</div>
+          <div class="gantt-bar-container">
+            <div class="gantt-bar" style="width: 40%; background: #2c7be5; margin-left: 20%;">4 с</div>
+          </div>
+        </div>
+        <div class="gantt-row">
+          <div class="gantt-label">C (проверка)</div>
+          <div class="gantt-bar-container">
+            <div class="gantt-bar" style="width: 30%; background: #1a5fb4; margin-left: 60%;">3 с</div>
+          </div>
+        </div>
+      </div>
+      <div class="gantt-axis">
+        <span>0 с</span><span>2 с</span><span>4 с</span><span>6 с</span><span>9 с</span>
+      </div>
+      <p>Общее время передачи: <strong>9 секунд</strong>.</p>
+    </div>
+
+    <!-- 5. Расчёт времени по диаграмме -->
+    <div class="card">
+      <h2>⏱️ Как считать время по диаграмме Гантта</h2>
+      <p>Чтобы найти общее время выполнения всех этапов:</p>
+      <ol>
+        <li>Найдите момент <strong>окончания последней задачи</strong> на оси времени.</li>
+        <li>Если задачи выполняются <strong>последовательно</strong> (друг за другом), общее время равно <strong>сумме</strong> длительностей.</li>
+        <li>Если задачи выполняются <strong>параллельно</strong> (одновременно), общее время равно времени самой длинной задачи.</li>
+      </ol>
+      <div class="accent-block">
+        <strong>Важно:</strong> в задачах на передачу информации по диаграмме Гантта чаще всего этапы идут последовательно, но иногда добавляются параллельные процессы (например, сжатие и шифрование одновременно).
+      </div>
+    </div>
+
+    <!-- 6. Алгоритм решения задач -->
+    <div class="card">
+      <h2>🧠 Алгоритм решения задач с диаграммой Гантта</h2>
+      <ol>
+        <li>Выписать все задачи (этапы) и их длительности.</li>
+        <li>Определить зависимости: какая задача после какой начинается.</li>
+        <li>Построить диаграмму: отложить по оси времени каждую задачу.</li>
+        <li>Найти момент окончания последней задачи — это общее время.</li>
+        <li>Если нужно найти объём переданных данных: <strong>I = V · t</strong>.</li>
+      </ol>
+      <div class="accent-block">
+        <strong>Совет:</strong> всегда проверяйте, есть ли «ожидание» между задачами. Иногда на диаграмме есть промежутки, когда ничего не выполняется — они тоже входят в общее время.
+      </div>
+    </div>
+
+    <!-- 7. Связь с передачей данных -->
+    <div class="card">
+      <h2>🔗 Связь диаграммы Гантта с передачей данных</h2>
+      <p>При передаче больших объёмов информации процесс разбивается на этапы:</p>
+      <ul>
+        <li>Сжатие данных.</li>
+        <li>Шифрование.</li>
+        <li>Непосредственная передача по каналу.</li>
+        <li>Проверка контрольной суммы.</li>
+        <li>Распаковка.</li>
+      </ul>
+      <p>Диаграмма Гантта позволяет увидеть, сколько времени займёт каждый этап и где можно сэкономить, запустив процессы параллельно.</p>
+    </div>
+  </div>
+
+  <!-- Навигация -->
+  <div class="nav-buttons">
+    <a href="index.html" class="btn secondary">← На главную</a>
+    <a href="transfer_tasks.html" class="btn">Перейти к заданиям →</a>
+  </div>
+</div>
+</body>
+</html>
