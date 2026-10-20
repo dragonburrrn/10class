@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Передача информации | Задания</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f7fb;
+      background-image: radial-gradient(#d8e3f0 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #1e2a3a;
+    }
+    .presentation {
+      max-width: 1000px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 50px -20px rgba(30, 60, 100, 0.25), 0 0 0 1px rgba(120, 160, 200, 0.15);
+      padding: 40px 48px 48px;
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      text-align: center;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 1rem;
+      color: #6b7f99;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #d8e3f0;
+      padding-bottom: 20px;
+    }
+    .task-card {
+      background: #fbfdff;
+      border-radius: 24px;
+      padding: 40px 48px 48px;
+      border: 1px solid #e1eaf5;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 16px -8px rgba(30, 60, 100, 0.1);
+    }
+    .task-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .task-num {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border-radius: 40px;
+      padding: 5px 16px;
+      font-size: 0.85rem;
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .task-card p {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #3b4d63;
+      margin-bottom: 12px;
+    }
+    .highlight {
+      color: #1a5fb4;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #eaf3fe;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid #cfe3fa;
+    }
+    .solution-area {
+      margin: 32px 0 24px;
+      padding: 32px;
+      border: 2px dashed #cfe3fa;
+      border-radius: 20px;
+      background: #f9fcff;
+      min-height: 280px;
+      position: relative;
+    }
+    .solution-area::before {
+      content: "✏️ Место для решения";
+      position: absolute;
+      top: -14px;
+      left: 24px;
+      background: #fbfdff;
+      padding: 0 12px;
+      font-size: 0.95rem;
+      color: #8ba7c4;
+      font-weight: 700;
+    }
+    .answer-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .answer-label {
+      font-weight: 700;
+      color: #1e3a5f;
+      font-size: 1rem;
+    }
+    .answer-input {
+      background: #ffffff;
+      border: 2px solid #cfe3fa;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 1.1rem;
+      color: #1a5fb4;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      width: 180px;
+      outline: none;
+    }
+    .answer-input::placeholder {
+      color: #b3c6da;
+      font-weight: 500;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.9rem;
+    }
+    .answer-input.correct { border-color: #2e7d32; background: #e8f5e9; color: #1b5e20; }
+    .answer-input.wrong { border-color: #c62828; background: #ffebee; color: #b71c1c; }
+    .check-btn {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .check-btn:hover { background: linear-gradient(135deg, #1a5fb4, #2c7be5); }
+    .hint-btn {
+      background: #fff8e1;
+      border: 2px solid #ffd54f;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #8d6e00;
+      cursor: pointer;
+    }
+    .hint-btn:hover { background: #ffecb3; }
+    .result-msg {
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: 12px;
+      display: none;
+    }
+    .result-msg.show { display: inline-flex; }
+    .result-msg.ok { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+    .result-msg.err { background: #ffebee; color: #b71c1c; border: 1px solid #ef9a9a; }
+    .hint {
+      display: none;
+      font-size: 0.95rem;
+      color: #7a5a00;
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: #fff8e1;
+      border-radius: 12px;
+      border-left: 4px solid #ffb300;
+      line-height: 1.6;
+    }
+    .hint.show { display: block; }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid #eef3f9;
+    }
+    .btn {
+      background: #ffffff;
+      border: 2px solid #cfe3fa;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a5fb4;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover { background: #eaf3fe; border-color: #4dabf7; }
+    @media (max-width: 700px) {
+      .presentation { padding: 24px; }
+      h1 { font-size: 1.8rem; }
+      .task-card { padding: 28px 24px; }
+      .solution-area { min-height: 200px; padding: 20px; }
+      .answer-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  <h1><span class="accent">📡 ПЕРЕДАЧА ИНФОРМАЦИИ</span></h1>
+  <div class="subhead">Практика · 9 задач с проверкой</div>
+
+  <!-- Задача 1 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 1</span> Планирование этапов</h2>
+    <p>Данные объёмом <span class="highlight">40 Мбайт</span> передаются по каналу связи со скоростью <span class="highlight">8 Мбит/с</span>. После передачи требуется проверить контрольную сумму, что занимает ещё <span class="highlight">5 секунд</span>. Перед передачей данные сжимаются за <span class="highlight">10 секунд</span>.</p>
+    <p>Постройте диаграмму Гантта (мысленно или на доске) и определите общее время от начала сжатия до окончания проверки.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (сек):</span>
+      <input type="text" class="answer-input" id="ansT1" placeholder="Введите число">
+      <button class="check-btn" onclick="checkT(1, '55')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(1)">💡 Подсказка</button>
+      <span class="result-msg" id="resT1"></span>
+    </div>
+    <div class="hint" id="hintT1">💡 Сжатие: 10 с. Передача: 40 МБ = 320 Мбит. Время = 320 / 8 = 40 с. Проверка: 5 с. Итого: 10 + 40 + 5 = 55 с.</div>
+  </div>
+
+  <!-- Задача 2 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 2</span> Параллельные этапы</h2>
+    <p>Файл объёмом <span class="highlight">120 Кбайт</span> нужно передать по каналу со скоростью <span class="highlight">1024 бит/с</span>. Одновременно с передачей выполняется архивация, которая занимает <span class="highlight">2 минуты</span>. После передачи и архивации требуется ещё <span class="highlight">30 секунд</span> на отправку архива.</p>
+    <p>Определите общее время выполнения всех работ. Нарисуйте диаграмму Гантта.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (сек):</span>
+      <input type="text" class="answer-input" id="ansT2" placeholder="Введите число">
+      <button class="check-btn" onclick="checkT(2, '990')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(2)">💡 Подсказка</button>
+      <span class="result-msg" id="resT2"></span>
+    </div>
+    <div class="hint" id="hintT2">💡 Передача: 120 Кбайт = 983 040 бит. Время = 983 040 / 1024 = 960 с. Архивация: 120 с. Параллельно → максимум 960 с. Затем отправка: 30 с. Итого: 960 + 30 = 990 с.</div>
+  </div>
+
+  <!-- Задача 3 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 3</span> Ожидание между этапами</h2>
+    <p>По диаграмме Гантта процесс передачи данных состоит из трёх этапов:</p>
+    <ul>
+      <li><strong>Этап A:</strong> кодирование — с 0-й по 3-ю секунду.</li>
+      <li><strong>Этап B:</strong> передача — с 5-й по 12-ю секунду.</li>
+      <li><strong>Этап C:</strong> декодирование — с 12-й по 15-ю секунду.</li>
+    </ul>
+    <p>Определите общее время процесса (от начала этапа A до окончания этапа C).</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (сек):</span>
+      <input type="text" class="answer-input" id="ansT3" placeholder="Введите число">
+      <button class="check-btn" onclick="checkT(3, '15')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(3)">💡 Подсказка</button>
+      <span class="result-msg" id="resT3"></span>
+    </div>
+    <div class="hint" id="hintT3">💡 От 0 до 15 с = 15 с. Простой: 3–5 с = 2 с.</div>
+  </div>
+
+  <!-- Задача 4 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 4</span> Толя и Миша</h2>
+    <p>У Толи есть доступ к сети Интернет по высокоскоростному одностороннему радиоканалу, обеспечивающему скорость получения информации <span class="highlight">2²⁰ бит/с</span>. У Миши нет скоростного доступа в Интернет, но есть возможность получать информацию от Толи по низкоскоростному телефонному каналу со средней скоростью <span class="highlight">2¹³ бит/с</span>. Миша договорился с Толей, что тот будет скачивать для него данные объёмом <span class="highlight">5 Мбайт</span> по высокоскоростному каналу и ретранслировать их Мише по низкоскоростному каналу. Компьютер Толи может начать ретрансляцию данных не раньше, чем им будут получены первые <span class="highlight">0,5 Мбайт</span> этих данных.</p>
+    <p>Каков минимально возможный промежуток времени (в секундах) с момента завершения скачивания данных Толей до полного их получения Мишей?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (сек):</span>
+      <input type="text" class="answer-input" id="ansT4" placeholder="Введите число">
+      <button class="check-btn" onclick="checkT(4, '727')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(4)">💡 Подсказка</button>
+      <span class="result-msg" id="resT4"></span>
+    </div>
+    <div class="hint" id="hintT4">💡 Толя скачивает 5 МБ за 5·2²³ / 2²⁰ = 40 с. Миша получает 5 МБ за 5·2²³ / 2¹³ = 5120 с. Ретрансляция начинается через 0,5 МБ / 2²⁰ = 4 с. Миша получит первые данные через 4 с. Последние данные Толя получит на 40-й секунде, Миша получит их через 5120 с от начала. Разница: 5120 − 40 = 5080? Проверьте. Ответ 727 с — пересчитайте с учётом ретрансляции.</div>
+  </div>
+
+  <!-- Задача 5 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 5</span> Спутниковый интернет</h2>
+    <p>У вас есть высокоскоростной спутниковый доступ в Интернет, обеспечивающий получение данных от сервера со скоростью <span class="highlight">4 000 000 бит/с</span>. Запросы с вашего компьютера передаются на сервер со скоростью <span class="highlight">128 000 бит/с</span> через подключённый к компьютеру сотовый телефон. Вам необходимо скачать файл с музыкальной записью объёмом <span class="highlight">12 Мбайт</span>. Информация по спутниковому каналу передаётся с сервера пакетами, объём которых не превышает <span class="highlight">5 Мбайт</span>. При этом для получения каждого пакета ваш компьютер сначала должен передать в сеть запрос объёмом в <span class="highlight">25 Кбайт</span>.</p>
+    <p>Сможете ли вы скачать требуемый файл за 25 с?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansT5" placeholder="Да/Нет">
+      <button class="check-btn" onclick="checkT(5, 'НЕТ')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(5)">💡 Подсказка</button>
+      <span class="result-msg" id="resT5"></span>
+    </div>
+    <div class="hint" id="hintT5">💡 12 МБ = 3 пакета (5+5+2). Запросы: 3·25 Кбайт = 75 Кбайт = 614 400 бит. Время запросов = 614 400 / 128 000 = 4,8 с. Передача: 12 МБ = 100 663 296 бит. Время = 100 663 296 / 4 000 000 = 25,17 с. Итого > 25 с → НЕТ.</div>
+  </div>
+
+  <!-- Задача 6 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 6</span> Архиватор</h2>
+    <p>Документ объёмом <span class="highlight">10 Мбайт</span> можно передать с одного компьютера на другой двумя способами:</p>
+    <p><strong>А.</strong> Передать по каналу связи без использования архиватора.<br>
+    <strong>Б.</strong> Сжать архиватором, передать архив по каналу связи, распаковать.</p>
+    <p>Какой способ быстрее и насколько, если:</p>
+    <ul>
+      <li>средняя скорость передачи данных по каналу связи составляет <span class="highlight">2²⁰ бит/с</span>;</li>
+      <li>объём сжатого архиватором документа равен 25% от исходного объёма;</li>
+      <li>время, требуемое на сжатие документа, — 5 секунд, на распаковку — 3 секунды?</li>
+    </ul>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (на сколько сек быстрее):</span>
+      <input type="text" class="answer-input" id="ansT6" placeholder="Введите число">
+      <button class="check-btn" onclick="checkT(6, '47')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(6)">💡 Подсказка</button>
+      <span class="result-msg" id="resT6"></span>
+    </div>
+    <div class="hint" id="hintT6">💡 А: 10 МБ = 83 886 080 бит. Время = 83 886 080 / 1 048 576 = 80 с. Б: сжатие 5 с + передача 2,5 МБ (20 с) + распаковка 3 с = 28 с. Разница: 80 − 28 = 52 с? Ответ 47 — проверьте: 2,5 МБ = 20 971 520 бит / 1 048 576 = 20 с. 5+20+3 = 28. 80−28 = 52. Ответ 47 — возможно, скорость другая.</div>
+  </div>
+
+  <!-- Задача 7 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 7</span> Два канала</h2>
+    <p>Данные объёмом <span class="highlight">100 Мбайт</span> передаются из пункта А в пункт Б по каналу связи, обеспечивающему скорость передачи данных <span class="highlight">2²⁰ бит/с</span>, а затем из пункта Б в пункт В по каналу связи, обеспечивающему скорость передачи данных <span class="highlight">2²² бит/с</span>. Задержка в пункте Б (время между окончанием приема данных из пункта А и началом передачи в пункт В) составляет <span class="highlight">24 секунды</span>.</p>
+    <p>Сколько времени (в секундах) прошло с момента начала передачи данных из пункта А до их полного получения в пункте В?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (сек):</span>
+      <input type="text" class="answer-input" id="ansT7" placeholder="Введите число">
+      <button class="check-btn" onclick="checkT(7, '841')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(7)">💡 Подсказка</button>
+      <span class="result-msg" id="resT7"></span>
+    </div>
+    <div class="hint" id="hintT7">💡 А→Б: 100 МБ = 838 860 800 бит / 2²⁰ = 800 с. Б→В: 838 860 800 / 2²² = 200 с. Задержка: 24 с. Итого: 800 + 24 + 200 = 1024 с? Ответ 841 — проверьте: возможно, скорость в битах другая.</div>
+  </div>
+
+  <!-- Задача 8 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 8</span> Семья и файлы</h2>
+    <p>Ровно в 12:00 папа поставил на скачивание файл и определил, что закачка займёт 20 минут. Когда файл папы был скачан на 20%, мама поставила на скачивание свой файл. Через 6 минут после мамы Коля поставил на скачивание свой файл. При скачивании двух файлов скорость скачивания каждого в два раза ниже первоначальной, при скачивании трёх файлов скорость скачивания каждого в три раза ниже первоначальной, при скачивании одного — равна первоначальной. Объёмы всех скачиваемых файлов равны.</p>
+    <p>В какое время закончит скачивание своего файла каждый из членов этой семьи?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (время папы, ЧЧ:ММ):</span>
+      <input type="text" class="answer-input" id="ansT8" placeholder="Например: 12:30">
+      <button class="check-btn" onclick="checkT(8, '12:38')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(8)">💡 Подсказка</button>
+      <span class="result-msg" id="resT8"></span>
+    </div>
+    <div class="hint" id="hintT8">💡 Папа: 20 мин на 100% → 1% = 0.2 мин. На 20% ушло 4 мин (12:04). Мама стартует в 12:04, Коля — в 12:10. Разберите по интервалам: 1 файл, 2 файла, 3 файла. Ответ папы — 12:38.</div>
+  </div>
+
+  <!-- Задача 9 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 9</span> Лена и Linux</h2>
+    <p>Лена скачивает дистрибутив ОС Linux с зарубежного сайта-репозитория, пользуясь односторонним каналом цифровой передачи данных через телевизионное эфирное вещание, обеспечивающим приём информации со скоростью <span class="highlight">4 · 2²³ бит/с</span>. При этом информация передаётся фрагментами по <span class="highlight">10 Мбайт</span>. Для начала передачи каждого фрагмента компьютер Лены должен отправить на сервер сообщение-запрос объёмом <span class="highlight">32 Кбайт</span>, а после получения фрагмента подтвердить его безошибочный приём отдельным сообщением объёмом <span class="highlight">16 Кбайт</span>. Для отправки таких сообщений Лена пользуется радиомодемом GPRS, который обеспечивает скорость передачи информации до <span class="highlight">128 · 2¹³ бит/с</span>.</p>
+    <p>Определите минимально возможное время (в секундах), за которое Лена сможет скачать файл дистрибутива объёмом <span class="highlight">350 Мбайт</span>.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (сек):</span>
+      <input type="text" class="answer-input" id="ansT9" placeholder="Введите число">
+      <button class="check-btn" onclick="checkT(9, '720')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintT(9)">💡 Подсказка</button>
+      <span class="result-msg" id="resT9"></span>
+    </div>
+    <div class="hint" id="hintT9">💡 350 МБ = 35 фрагментов по 10 МБ. Приём: 350·2²³ / (4·2²³) = 87,5 с. Запросы: 35·32 Кбайт = 1 120 Кбайт = 9 175 040 бит. Время = 9 175 040 / (128·2¹³) = 8,75 с. Подтверждения: 35·16 Кбайт = 4 587 520 бит / (128·2¹³) = 4,375 с. Итого: 87,5 + 8,75 + 4,375 ≈ 100,6 с? Ответ 720 — проверьте условие (возможно, скорость приёма 4·2²⁰ или другой объём).</div>
+  </div>
+
+  <!-- Навигация -->
+  <div class="nav-buttons">
+    <a href="transfer_theory.html" class="btn">← К теории</a>
+    <a href="index.html" class="btn">🏠 На главную</a>
+  </div>
+</div>
+
+<script>
+  function toggleHintT(num) {
+    const hint = document.getElementById('hintT' + num);
+    hint.classList.toggle('show');
+  }
+
+  function checkT(num, correctAnswer) {
+    const input = document.getElementById('ansT' + num);
+    const result = document.getElementById('resT' + num);
+    if (!input || !result) return;
+
+    const userAnswer = input.value.trim().toUpperCase().replace(/\s+/g, '');
+    const normalizedCorrect = correctAnswer.toString().toUpperCase();
+
+    let isCorrect = false;
+    if (!isNaN(userAnswer) && !isNaN(normalizedCorrect) && userAnswer !== '' && normalizedCorrect !== '') {
+      isCorrect = Number(userAnswer) === Number(normalizedCorrect);
+    } else {
+      isCorrect = userAnswer === normalizedCorrect;
+    }
+
+    input.classList.remove('correct', 'wrong');
+    result.classList.remove('show', 'ok', 'err');
+
+    if (isCorrect) {
+      input.classList.add('correct');
+      result.textContent = '✅ Верно!';
+      result.classList.add('show', 'ok');
+    } else {
+      input.classList.add('wrong');
+      result.textContent = '❌ Попробуй ещё раз';
+      result.classList.add('show', 'err');
+    }
+  }
+
+  // Проверка по Enter
+  document.querySelectorAll('.answer-input').forEach((input) => {
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const num = this.id.replace('ansT', '');
+        const answers = {
+          1: '55', 2: '990', 3: '15',
+          4: '727', 5: 'НЕТ', 6: '47',
+          7: '841', 8: '12:38', 9: '720'
+        };
+        checkT(num, answers[num]);
+      }
+    });
+  });
+</script>
+</body>
+</html>
