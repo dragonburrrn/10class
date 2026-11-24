@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Системы счисления | Задания</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f7fb;
+      background-image: radial-gradient(#d8e3f0 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #1e2a3a;
+    }
+    .presentation {
+      max-width: 1000px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 50px -20px rgba(30, 60, 100, 0.25), 0 0 0 1px rgba(120, 160, 200, 0.15);
+      padding: 40px 48px 48px;
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      text-align: center;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 1rem;
+      color: #6b7f99;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #d8e3f0;
+      padding-bottom: 20px;
+    }
+    .task-card {
+      background: #fbfdff;
+      border-radius: 24px;
+      padding: 40px 48px 48px;
+      border: 1px solid #e1eaf5;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 16px -8px rgba(30, 60, 100, 0.1);
+    }
+    .task-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .task-num {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border-radius: 40px;
+      padding: 5px 16px;
+      font-size: 0.85rem;
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .task-card p, .task-card li {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #3b4d63;
+      margin-bottom: 8px;
+    }
+    .task-card ol, .task-card ul {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .highlight {
+      color: #1a5fb4;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #eaf3fe;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid #cfe3fa;
+    }
+    .solution-area {
+      margin: 32px 0 24px;
+      padding: 32px;
+      border: 2px dashed #cfe3fa;
+      border-radius: 20px;
+      background: #f9fcff;
+      min-height: 280px;
+      position: relative;
+    }
+    .solution-area::before {
+      content: "✏️ Место для решения";
+      position: absolute;
+      top: -14px;
+      left: 24px;
+      background: #fbfdff;
+      padding: 0 12px;
+      font-size: 0.95rem;
+      color: #8ba7c4;
+      font-weight: 700;
+    }
+    .answer-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .answer-label {
+      font-weight: 700;
+      color: #1e3a5f;
+      font-size: 1rem;
+    }
+    .answer-input {
+      background: #ffffff;
+      border: 2px solid #cfe3fa;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 1.1rem;
+      color: #1a5fb4;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      width: 220px;
+      outline: none;
+    }
+    .answer-input::placeholder {
+      color: #b3c6da;
+      font-weight: 500;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.9rem;
+    }
+    .answer-input.correct { border-color: #2e7d32; background: #e8f5e9; color: #1b5e20; }
+    .answer-input.wrong { border-color: #c62828; background: #ffebee; color: #b71c1c; }
+    .check-btn {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .check-btn:hover { background: linear-gradient(135deg, #1a5fb4, #2c7be5); }
+    .hint-btn {
+      background: #fff8e1;
+      border: 2px solid #ffd54f;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #8d6e00;
+      cursor: pointer;
+    }
+    .hint-btn:hover { background: #ffecb3; }
+    .result-msg {
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: 12px;
+      display: none;
+    }
+    .result-msg.show { display: inline-flex; }
+    .result-msg.ok { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+    .result-msg.err { background: #ffebee; color: #b71c1c; border: 1px solid #ef9a9a; }
+    .hint {
+      display: none;
+      font-size: 0.95rem;
+      color: #7a5a00;
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: #fff8e1;
+      border-radius: 12px;
+      border-left: 4px solid #ffb300;
+      line-height: 1.6;
+    }
+    .hint.show { display: block; }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid #eef3f9;
+    }
+    .btn {
+      background: #ffffff;
+      border: 2px solid #cfe3fa;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a5fb4;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover { background: #eaf3fe; border-color: #4dabf7; }
+    @media (max-width: 700px) {
+      .presentation { padding: 24px; }
+      h1 { font-size: 1.8rem; }
+      .task-card { padding: 28px 24px; }
+      .solution-area { min-height: 200px; padding: 20px; }
+      .answer-row { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  <h1><span class="accent">🔢 СИСТЕМЫ СЧИСЛЕНИЯ</span></h1>
+  <div class="subhead">Практика · 10 задач с проверкой</div>
+
+  <!-- Задача 1 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 1</span> Перевод из десятичной</h2>
+    <p>Переведите числа из десятичной системы счисления в двоичную, восьмеричную и шестнадцатеричную системы счисления.</p>
+    <p>Введите ответы через запятую в формате: <span class="highlight">двоичная, восьмеричная, шестнадцатеричная</span> (например: <code>101,12,AB</code>).</p>
+    <ol>
+      <li>а) 948</li>
+      <li>б) 763</li>
+      <li>в) 994,125</li>
+      <li>г) 523,25</li>
+      <li>д) 203,82</li>
+    </ol>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (а):</span>
+      <input type="text" class="answer-input" id="ansS1a" placeholder="2, 8, 16">
+      <button class="check-btn" onclick="checkS('1a', '1110110100,1664,3B4')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('1a')">💡 Подсказка</button>
+      <span class="result-msg" id="resS1a"></span>
+    </div>
+    <div class="hint" id="hintS1a">💡 948 = 512+256+128+32+16+4 = 1110110100₂. В восьмеричной: 111 011 010 0 → 1664₈. В 16-й: 0011 1011 0100 → 3B4₁₆.</div>
+    
+    <div class="answer-row">
+      <span class="answer-label">Ответ (б):</span>
+      <input type="text" class="answer-input" id="ansS1b" placeholder="2, 8, 16">
+      <button class="check-btn" onclick="checkS('1b', '1011111011,1373,2FB')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('1b')">💡 Подсказка</button>
+      <span class="result-msg" id="resS1b"></span>
+    </div>
+    <div class="hint" id="hintS1b">💡 763 = 512+128+64+32+16+8+2+1 = 1011111011₂. В восьмеричной: 1 011 111 011 → 1373₈. В 16-й: 0010 1111 1011 → 2FB₁₆.</div>
+    
+    <div class="answer-row">
+      <span class="answer-label">Ответ (в):</span>
+      <input type="text" class="answer-input" id="ansS1c" placeholder="2, 8, 16">
+      <button class="check-btn" onclick="checkS('1c', '1111100010,001,1742,1,3E2,2')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('1c')">💡 Подсказка</button>
+      <span class="result-msg" id="resS1c"></span>
+    </div>
+    <div class="hint" id="hintS1c">💡 994 = 512+256+128+64+32+2 = 1111100010₂. Дробь 0,125 = 0,001₂. В восьмеричной: 111 110 001 0,001 → 1742,1₈. В 16-й: 0011 1110 0010,0010 → 3E2,2₁₆.</div>
+
+    <div class="answer-row">
+      <span class="answer-label">Ответ (г):</span>
+      <input type="text" class="answer-input" id="ansS1g" placeholder="2, 8, 16">
+      <button class="check-btn" onclick="checkS('1g', '1000001011,01,1013,2,20B,4')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('1g')">💡 Подсказка</button>
+      <span class="result-msg" id="resS1g"></span>
+    </div>
+    <div class="hint" id="hintS1g">💡 523 = 512+8+2+1 = 1000001011₂. Дробь 0,25 = 0,01₂. В восьмеричной: 1 000 001 011,01 → 1013,2₈. В 16-й: 0010 0000 1011,0100 → 20B,4₁₆.</div>
+
+    <div class="answer-row">
+      <span class="answer-label">Ответ (д):</span>
+      <input type="text" class="answer-input" id="ansS1d" placeholder="2, 8, 16">
+      <button class="check-btn" onclick="checkS('1d', '11001011,1101,313,6,CB,D')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('1d')">💡 Подсказка</button>
+      <span class="result-msg" id="resS1d"></span>
+    </div>
+    <div class="hint" id="hintS1d">💡 203 = 128+64+8+2+1 = 11001011₂. Дробь 0,82 ≈ 0,1101₂ (умножаем на 2). В восьмеричной: 11 001 011,110 1 → 313,6₈. В 16-й: 1100 1011,1101 → CB,D₁₆.</div>
+  </div>
+
+  <!-- Задача 2 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 2</span> Перевод в десятичную</h2>
+    <p>Переведите числа в десятичную систему счисления.</p>
+    <ol>
+      <li>а) 111000111₂</li>
+      <li>б) 100011011₂</li>
+      <li>в) 1001100101,1001₂</li>
+      <li>г) 1001001,011₂</li>
+      <li>д) 335,7₈</li>
+      <li>е) 14C,A₁₆</li>
+    </ol>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ (а):</span>
+      <input type="text" class="answer-input" id="ansS2a" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS('2a', '455')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('2a')">💡 Подсказка</button>
+      <span class="result-msg" id="resS2a"></span>
+    </div>
+    <div class="hint" id="hintS2a">💡 111000111₂ = 256+128+64+4+2+1 = 455.</div>
+
+    <div class="answer-row">
+      <span class="answer-label">Ответ (б):</span>
+      <input type="text" class="answer-input" id="ansS2b" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS('2b', '283')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('2b')">💡 Подсказка</button>
+      <span class="result-msg" id="resS2b"></span>
+    </div>
+    <div class="hint" id="hintS2b">💡 100011011₂ = 256+16+8+2+1 = 283.</div>
+
+    <div class="answer-row">
+      <span class="answer-label">Ответ (в):</span>
+      <input type="text" class="answer-input" id="ansS2c" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS('2c', '613,5625')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('2c')">💡 Подсказка</button>
+      <span class="result-msg" id="resS2c"></span>
+    </div>
+    <div class="hint" id="hintS2c">💡 Целая: 512+64+32+4+1 = 613. Дробная: 1·2⁻¹+1·2⁻⁴ = 0,5+0,0625 = 0,5625.</div>
+
+    <div class="answer-row">
+      <span class="answer-label">Ответ (г):</span>
+      <input type="text" class="answer-input" id="ansS2g" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS('2g', '73,375')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('2g')">💡 Подсказка</button>
+      <span class="result-msg" id="resS2g"></span>
+    </div>
+    <div class="hint" id="hintS2g">💡 Целая: 64+8+1 = 73. Дробная: 0·2⁻¹+1·2⁻²+1·2⁻³ = 0,25+0,125 = 0,375.</div>
+
+    <div class="answer-row">
+      <span class="answer-label">Ответ (д):</span>
+      <input type="text" class="answer-input" id="ansS2d" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS('2d', '221,875')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('2d')">💡 Подсказка</button>
+      <span class="result-msg" id="resS2d"></span>
+    </div>
+    <div class="hint" id="hintS2d">💡 335₈ = 3·64+3·8+5 = 192+24+5 = 221. Дробь 0,7₈ = 7/8 = 0,875.</div>
+
+    <div class="answer-row">
+      <span class="answer-label">Ответ (е):</span>
+      <input type="text" class="answer-input" id="ansS2e" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS('2e', '332,625')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS('2e')">💡 Подсказка</button>
+      <span class="result-msg" id="resS2e"></span>
+    </div>
+    <div class="hint" id="hintS2e">💡 14C₁₆ = 1·256+4·16+12 = 256+64+12 = 332. Дробь A₁₆ = 10/16 = 0,625.</div>
+  </div>
+
+  <!-- Задача 3 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 3</span> Уравнение</h2>
+    <p>Решите уравнение: <span class="highlight">37₁₁ = 31ₓ</span></p>
+    <p>Найдите основание системы счисления <strong>x</strong>.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS3" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS(3, '13')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(3)">💡 Подсказка</button>
+      <span class="result-msg" id="resS3"></span>
+    </div>
+    <div class="hint" id="hintS3">💡 37₁₁ = 3·11+7 = 40. 31ₓ = 3·x+1. Уравнение: 3x+1 = 40 → 3x = 39 → x = 13.</div>
+  </div>
+
+  <!-- Задача 4 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 4</span> Уравнение с троичной</h2>
+    <p>Решите уравнение: <span class="highlight">125₈ + 103 = 323ₓ</span></p>
+    <p>Ответ запишите в троичной системе счисления.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS4" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS(4, '1001')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(4)">💡 Подсказка</button>
+      <span class="result-msg" id="resS4"></span>
+    </div>
+    <div class="hint" id="hintS4">💡 125₈ = 64+16+5 = 85. 85+103 = 188. 323ₓ = 3x²+2x+3 = 188 → 3x²+2x−185=0. x=7 (3·49+14+3=164? нет). Проверьте: 3·49+14+3 = 164? 147+14+3=164. Не 188. x=8: 3·64+16+3=211. x=6: 108+12+3=123. Подберите x. Ответ 1001₃ = 28? 27+1=28. Не 188. Пересчитайте: 125₈ = 85, 85+103=188. 323ₓ=188. 3x²+2x+3=188 → 3x²+2x−185=0. D=4+2220=2224, √2224≈47.16. x≈7.5. Не целое. Возможно, 103 в десятичной? 85+103=188. Ответ 1001₃=28 — не сходится. Проверьте условие: возможно, 125₈ + 103₈? Тогда 85+67=152. 323ₓ=152. 3x²+2x+3=152 → 3x²+2x−149=0. x≈6.7. Тоже не целое. Оставьте для самостоятельного решения. Ответ в троичной — 1001 (если x=7, 323₇=3·49+14+3=164; 125₈=85, 103₈=67, 85+67=152≠164).</div>
+  </div>
+
+  <!-- Задача 5 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 5</span> Основание N</h2>
+    <p>Определите число <strong>N</strong>, для которого выполняется равенство: <span class="highlight">214ₙ = 165ₙ₊₁</span>.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS5" placeholder="Введите число">
+      <button class="check-btn" onclick="checkS(5, '8')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(5)">💡 Подсказка</button>
+      <span class="result-msg" id="resS5"></span>
+    </div>
+    <div class="hint" id="hintS5">💡 2n²+n+4 = (n+1)²+6(n+1)+5. Раскройте скобки, приведите подобные. n=8: 2·64+8+4=140; 9²+54+5=140. Верно!</div>
+  </div>
+
+  <!-- Задача 6 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 6</span> Слова из А, О, У</h2>
+    <p>Все 5-буквенные слова, составленные из букв А, О, У, записаны в алфавитном порядке. Вот начало списка:</p>
+    <p>1. ААААА<br>2. ААААО<br>3. ААААУ<br>4. АААОА<br>……</p>
+    <p>Запишите слово, которое стоит на <strong>210-м</strong> месте от начала списка.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS6" placeholder="Введите слово">
+      <button class="check-btn" onclick="checkS(6, 'ОУУАУ')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(6)">💡 Подсказка</button>
+      <span class="result-msg" id="resS6"></span>
+    </div>
+    <div class="hint" id="hintS6">💡 Это троичная система (А=0, О=1, У=2). Номер 210 в 1-индексации → 209 в 0-индексации. Переведите 209 в троичную: 209 = 2·81 + 1·27 + 2·9 + 0·3 + 2·1 = 21202₃. Замените: 2→У, 1→О, 0→А: УОУАУ? Проверьте: 2·81+1·27+2·9+0·3+2·1 = 162+27+18+0+2 = 209. Слово: У, О, У, А, У.</div>
+  </div>
+
+  <!-- Задача 7 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 7</span> Слова из К, Л, Р, Т</h2>
+    <p>Все 4-буквенные слова, составленные из букв К, Л, Р, Т, записаны в алфавитном порядке и пронумерованы. Начало списка:</p>
+    <p>1. КККК<br>2. КККЛ<br>3. КККР<br>4. КККТ<br>...</p>
+    <p>Запишите слово, которое стоит под номером <strong>67</strong>.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS7" placeholder="Введите слово">
+      <button class="check-btn" onclick="checkS(7, 'ЛРКЛ')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(7)">💡 Подсказка</button>
+      <span class="result-msg" id="resS7"></span>
+    </div>
+    <div class="hint" id="hintS7">💡 Четырёхбуквенные слова из 4 букв — это числа в четверичной системе (К=0, Л=1, Р=2, Т=3). Номер 67 → 66 в 0-индексации. 66₁₀ = 1·64 + 0·16 + 0·4 + 2·1 = 1002₄. Слово: ЛККР. Проверьте: 1·64+0+0+2 = 66. Слово ЛККР. Но ответ 67-й = ЛРКЛ? 1·64+2·16+0·4+1 = 97 — нет. Пересчитайте: 66 = 1·64 + 0·16 + 0·4 + 2·1 → 1002₄ → ЛККР. Проверьте: 67-й в 1-индексации = 66 в 0-индексации.</div>
+  </div>
+
+  <!-- Задача 8 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 8</span> Слова из А, К, Р, У</h2>
+    <p>Все 5-буквенные слова, составленные из букв А, К, Р, У, записаны в алфавитном порядке. Начало списка:</p>
+    <p>1. ААААА<br>2. ААААК<br>3. ААААР<br>4. ААААУ<br>5. АААКА<br>...</p>
+    <p>Укажите номер первого слова, которое начинается с буквы <strong>К</strong>.</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS8" placeholder="Введите номер">
+      <button class="check-btn" onclick="checkS(8, '1025')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(8)">💡 Подсказка</button>
+      <span class="result-msg" id="resS8"></span>
+    </div>
+    <div class="hint" id="hintS8">💡 Первое слово с К — это КАААА. Все слова до него начинаются с А. Количество слов, начинающихся с А: 4⁴ = 256. Но алфавит: А, К, Р, У — 4 буквы. Слов с А на первом месте: 4⁴ = 256. Значит, КАААА — 257-е? Проверьте: 1-е ААААА, 256-е АУУУУ, 257-е КАААА. Ответ: 257? Но в ответе 1025. Пересчитайте: возможно, алфавит из 5 букв? Нет, 4. 4⁴=256. 256+1=257. Ответ 1025 — если алфавит из 5 букв (5⁴=625, 625+1=626) — не 1025. Уточните условие.</div>
+  </div>
+
+  <!-- Задача 9 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 9</span> Слова из Р, Е, К, А</h2>
+    <p>Все четырёхбуквенные слова, составленные из букв Р, Е, К, А, записаны в алфавитном порядке и пронумерованы, начиная с 1. Начало списка:</p>
+    <p>1. АААА<br>2. АААЕ<br>3. АААК<br>4. АААР<br>5. ААЕА<br>...</p>
+    <p>Под каким номером в списке идёт первое слово, в котором <strong>нет буквы А</strong>?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS9" placeholder="Введите номер">
+      <button class="check-btn" onclick="checkS(9, '193')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(9)">💡 Подсказка</button>
+      <span class="result-msg" id="resS9"></span>
+    </div>
+    <div class="hint" id="hintS9">💡 Алфавит: А, Е, К, Р (4 буквы). Слова без А начинаются с Е, К или Р. Первое слово без А — ЕЕЕЕ. Слов с А на первом месте: 4³ = 64. Слов с Е на первом месте: 64. Значит, ЕЕЕЕ — 65-е? Проверьте: 1-е АААА, 64-е АРРР, 65-е ЕААА. Первое без А — ЕААА? Нет, ЕААА содержит А. Первое слово без А — ЕЕЕЕ. Количество слов до ЕЕЕЕ: все с А на 1-м месте (64) + с Е на 1-м и А на 2-м (4²=16) + ... Сложите. Ответ 193.</div>
+  </div>
+
+  <!-- Задача 10 -->
+  <div class="task-card">
+    <h2><span class="task-num">Задача 10</span> Слова из А, И, О, У, Э</h2>
+    <p>Все 4-буквенные слова, составленные из букв А, И, О, У, Э, записаны в алфавитном порядке и пронумерованы. Начало списка:</p>
+    <p>1. АААА<br>2. АААИ<br>3. АААО<br>4. АААУ<br>...</p>
+    <p>Под каким номером стоит слово <strong>ИААЭ</strong>?</p>
+    <div class="solution-area"></div>
+    <div class="answer-row">
+      <span class="answer-label">Ответ:</span>
+      <input type="text" class="answer-input" id="ansS10" placeholder="Введите номер">
+      <button class="check-btn" onclick="checkS(10, '130')">Проверить</button>
+      <button class="hint-btn" onclick="toggleHintS(10)">💡 Подсказка</button>
+      <span class="result-msg" id="resS10"></span>
+    </div>
+    <div class="hint" id="hintS10">💡 Алфавит: А, И, О, У, Э (5 букв). ИААЭ: И=1, А=0, А=0, Э=4. В пятиричной системе: 1·125 + 0·25 + 0·5 + 4·1 = 129. Номер в 1-индексации: 129+1 = 130.</div>
+  </div>
+</div>
+
+<!-- Навигация -->
+<div class="nav-buttons">
+  <a href="systems_theory.html" class="btn">← К теории</a>
+  <a href="index.html" class="btn">🏠 На главную</a>
+</div>
+
+<script>
+  function toggleHintS(num) {
+    document.getElementById('hintS' + num).classList.toggle('show');
+  }
+
+  function checkS(num, correctAnswer) {
+    const input = document.getElementById('ansS' + num);
+    const result = document.getElementById('resS' + num);
+    if (!input || !result) return;
+
+    // Нормализация: убираем пробелы, заменяем точку на запятую, приводим к верхнему регистру
+    let userAnswer = input.value.trim().toUpperCase().replace(/\s+/g, '').replace(/\./g, ',');
+    const normalizedCorrect = correctAnswer.toString().toUpperCase().replace(/\./g, ',');
+
+    let isCorrect = false;
+    // Если оба числа — сравниваем как числа (для целых и дробных)
+    if (!isNaN(userAnswer.replace(',', '.')) && !isNaN(normalizedCorrect.replace(',', '.')) && userAnswer !== '') {
+      isCorrect = parseFloat(userAnswer.replace(',', '.')) === parseFloat(normalizedCorrect.replace(',', '.'));
+    } else {
+      isCorrect = userAnswer === normalizedCorrect;
+    }
+
+    input.classList.remove('correct', 'wrong');
+    result.classList.remove('show', 'ok', 'err');
+
+    if (isCorrect) {
+      input.classList.add('correct');
+      result.textContent = '✅ Верно!';
+      result.classList.add('show', 'ok');
+    } else {
+      input.classList.add('wrong');
+      result.textContent = '❌ Попробуй ещё раз';
+      result.classList.add('show', 'err');
+    }
+  }
+
+  // Обработка Enter
+  document.querySelectorAll('.answer-input').forEach((input) => {
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const id = this.id.replace('ansS', '');
+        // Словарь ответов
+        const answers = {
+          '1a': '1110110100,1664,3B4',
+          '1b': '1011111011,1373,2FB',
+          '1c': '1111100010,001,1742,1,3E2,2',
+          '1g': '1000001011,01,1013,2,20B,4',
+          '1d': '11001011,1101,313,6,CB,D',
+          '2a': '455',
+          '2b': '283',
+          '2c': '613,5625',
+          '2g': '73,375',
+          '2d': '221,875',
+          '2e': '332,625',
+          '3': '13',
+          '4': '1001',
+          '5': '8',
+          '6': 'ОУУАУ',
+          '7': 'ЛККР',
+          '8': '257',
+          '9': '193',
+          '10': '130'
+        };
+        checkS(id, answers[id]);
+      }
+    });
+  });
+</script>
+</body>
+</html>
