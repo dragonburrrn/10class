@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Системы счисления | Теория</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f4f7fb;
+      background-image: radial-gradient(#d8e3f0 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #1e2a3a;
+    }
+    .presentation {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 50px -20px rgba(30, 60, 100, 0.25), 0 0 0 1px rgba(120, 160, 200, 0.15);
+      padding: 40px 48px 48px;
+    }
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .subhead {
+      text-align: center;
+      font-size: 1.05rem;
+      color: #6b7f99;
+      margin-bottom: 36px;
+      border-bottom: 2px dashed #d8e3f0;
+      padding-bottom: 20px;
+    }
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .card {
+      background: #fbfdff;
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid #e1eaf5;
+      box-shadow: 0 4px 16px -8px rgba(30, 60, 100, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      border-color: #b8d4f0;
+      box-shadow: 0 8px 24px -10px rgba(30, 60, 100, 0.18);
+      transform: translateY(-2px);
+    }
+    .card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card p, .card li {
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: #3b4d63;
+    }
+    .card ul, .card ol { padding-left: 24px; margin: 12px 0; }
+    .card li { margin-bottom: 8px; }
+    .highlight {
+      color: #1a5fb4;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #eaf3fe;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border: 1px solid #cfe3fa;
+    }
+    .formula {
+      background: #eef6ff;
+      border-radius: 16px;
+      padding: 18px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 1.15rem;
+      color: #0b4a8f;
+      font-weight: 700;
+      margin: 16px 0;
+      border: 1px solid #cfe3fa;
+      text-align: center;
+    }
+    .accent-block {
+      background: #eaf3fe;
+      border-left: 4px solid #4dabf7;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      color: #1e3a5f;
+    }
+    .accent-block strong { color: #1a5fb4; }
+    .example-block {
+      background: #f0f9f4;
+      border-left: 4px solid #34a853;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 16px 0;
+      color: #1e3a5f;
+    }
+    .example-block .example-title {
+      font-weight: 700;
+      color: #1e7e34;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    th, td {
+      border: 1px solid #cfe3fa;
+      padding: 8px 12px;
+    }
+    th { background: #eaf3fe; color: #1a5fb4; font-weight: 700; }
+    td { background: #ffffff; color: #1e2a3a; font-family: 'Courier New', monospace; }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 2px solid #eef3f9;
+    }
+    .btn {
+      background: linear-gradient(135deg, #2c7be5, #4dabf7);
+      border: none;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px -8px rgba(44, 123, 229, 0.6);
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: linear-gradient(135deg, #1a5fb4, #2c7be5);
+      transform: translateY(-2px);
+    }
+    .btn.secondary {
+      background: #ffffff;
+      color: #1a5fb4;
+      border: 2px solid #cfe3fa;
+      box-shadow: none;
+    }
+    .btn.secondary:hover { background: #eaf3fe; border-color: #4dabf7; }
+    @media (max-width: 800px) {
+      .presentation { padding: 24px; }
+      h1 { font-size: 1.9rem; }
+      .theory-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="presentation">
+  <h1><span class="accent">🔢 СИСТЕМЫ СЧИСЛЕНИЯ</span></h1>
+  <div class="subhead">Позиционные и непозиционные системы · Перевод чисел · Триады и тетрады</div>
+
+  <div class="theory-grid">
+    <!-- 1. Что такое система счисления -->
+    <div class="card">
+      <h2>📌 Что такое система счисления?</h2>
+      <p><span class="highlight">Система счисления</span> — это совокупность правил и приёмов записи чисел с помощью определённого набора знаков (цифр).</p>
+      <p>Количество цифр, используемых в системе, называется её <strong>основанием</strong>.</p>
+      <div class="accent-block">
+        <strong>Пример:</strong> в десятичной системе основание = 10 (цифры 0–9), в двоичной = 2 (цифры 0, 1).
+      </div>
+    </div>
+
+    <!-- 2. Виды систем счисления -->
+    <div class="card">
+      <h2>🗂️ Виды систем счисления</h2>
+      <p><strong>1. Унарные</strong> — используют только один знак (например, счёт на пальцах, зарубки).</p>
+      <p><strong>2. Непозиционные</strong> — значение цифры не зависит от её места в числе.</p>
+      <ul>
+        <li><em>Пример:</em> римская система (I, V, X, L, C, D, M).</li>
+        <li>В числе XXX значение каждого X одинаково — 10.</li>
+      </ul>
+      <p><strong>3. Позиционные</strong> — значение цифры зависит от её позиции (разряда).</p>
+      <ul>
+        <li><em>Пример:</em> десятичная, двоичная, восьмеричная, шестнадцатеричная.</li>
+      </ul>
+    </div>
+
+    <!-- 3. Римская система -->
+    <div class="card">
+      <h2>🏛️ Римская система счисления</h2>
+      <p>Непозиционная система. Цифры: <span class="highlight">I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1000</span>.</p>
+      <p><strong>Правила перевода:</strong></p>
+      <ul>
+        <li>Если меньшая цифра стоит перед большей — она вычитается (IV = 4, IX = 9).</li>
+        <li>Если меньшая стоит после большей — прибавляется (VI = 6, XI = 11).</li>
+        <li>Одна и та же цифра не может стоять подряд более трёх раз.</li>
+      </ul>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>MCMXCVIII</strong> = 1000 + (1000 − 100) + (100 − 10) + 5 + 1 + 1 + 1 = <strong>1998</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 4. Развёрнутая запись числа -->
+    <div class="card">
+      <h2>📝 Развёрнутая запись числа</h2>
+      <p>Любое число в позиционной системе можно записать в виде суммы произведений цифр на степени основания.</p>
+      <div class="formula">A = a<sub>n</sub>·q<sup>n</sup> + ... + a<sub>1</sub>·q<sup>1</sup> + a<sub>0</sub>·q<sup>0</sup> + a<sub>-1</sub>·q<sup>-1</sup> + ...</div>
+      <p>где <strong>q</strong> — основание, <strong>a</strong> — цифры.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример (целое)</div>
+        <p><strong>253₁₀</strong> = 2·10² + 5·10¹ + 3·10⁰ = 200 + 50 + 3.</p>
+      </div>
+      <div class="example-block">
+        <div class="example-title">📌 Пример (дробное)</div>
+        <p><strong>101,11₂</strong> = 1·2² + 0·2¹ + 1·2⁰ + 1·2⁻¹ + 1·2⁻² = 4 + 0 + 1 + 0,5 + 0,25 = <strong>5,75₁₀</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 5. Перевод в десятичную -->
+    <div class="card">
+      <h2>➡️ Перевод в десятичную систему</h2>
+      <p>Используем формулу развёрнутой записи: умножаем каждую цифру на основание в степени её позиции и складываем.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>1101₂</strong> = 1·2³ + 1·2² + 0·2¹ + 1·2⁰ = 8 + 4 + 0 + 1 = <strong>13₁₀</strong>.</p>
+        <p><strong>2A₁₆</strong> = 2·16¹ + 10·16⁰ = 32 + 10 = <strong>42₁₀</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 6. Перевод из десятичной -->
+    <div class="card">
+      <h2>⬅️ Перевод из десятичной системы</h2>
+      <p><strong>Для целых чисел:</strong> делим на основание, записываем остатки в обратном порядке.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>45₁₀</strong> в двоичную:</p>
+        <p>45 ÷ 2 = 22 (ост. 1)<br>22 ÷ 2 = 11 (ост. 0)<br>11 ÷ 2 = 5 (ост. 1)<br>5 ÷ 2 = 2 (ост. 1)<br>2 ÷ 2 = 1 (ост. 0)<br>1 ÷ 2 = 0 (ост. 1)</p>
+        <p>Читаем остатки снизу вверх: <strong>101101₂</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 7. Перевод дробных чисел -->
+    <div class="card">
+      <h2>🔢 Перевод дробных чисел</h2>
+      <p><strong>Из десятичной в другую:</strong> умножаем дробную часть на основание, выделяем целую часть, повторяем с остатком.</p>
+      <div class="example-block">
+        <div class="example-title">📌 Пример</div>
+        <p><strong>0,625₁₀</strong> в двоичную:</p>
+        <p>0,625 · 2 = 1,25 → целая 1<br>0,25 · 2 = 0,5 → целая 0<br>0,5 · 2 = 1,0 → целая 1</p>
+        <p>Читаем сверху вниз: <strong>0,101₂</strong>.</p>
+      </div>
+    </div>
+
+    <!-- 8. Таблица триад и тетрад -->
+    <div class="card">
+      <h2>📊 Таблицы триад и тетрад</h2>
+      <p>Для быстрого перевода между двоичной, восьмеричной и шестнадцатеричной системами используют таблицы.</p>
+      <p><strong>Триады (2 ↔ 8):</strong> каждые 3 двоичных разряда = 1 восьмеричная цифра.</p>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>2 сс</th><td>000</td><td>001</td><td>010</td><td>011</td><td>100</td><td>101</td><td>110</td><td>111</td></tr>
+          <tr><th>8 сс</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        </table>
+      </div>
+      <p><strong>Тетрады (2 ↔ 16):</strong> каждые 4 двоичных разряда = 1 шестнадцатеричная цифра.</p>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>2 сс</th><td>0000</td><td>0001</td><td>0010</td><td>0011</td><td>0100</td><td>0101</td><td>0110</td><td>0111</td></tr>
+          <tr><th>16 сс</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+          <tr><th>2 сс</th><td>1000</td><td>1001</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr>
+          <tr><th>16 сс</th><td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td></tr>
+        </table>
+      </div>
+      <div class="accent-block">
+        <strong>Совет:</strong> при переводе из 2 в 8 разбивайте число на триады справа налево, из 2 в 16 — на тетрады.
+      </div>
+    </div>
+  </div>
+
+  <!-- Навигация -->
+  <div class="nav-buttons">
+    <a href="index.html" class="btn secondary">← На главную</a>
+    <a href="systems_tasks.html" class="btn">Перейти к заданиям →</a>
+  </div>
+</div>
+</body>
+</html>
